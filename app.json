@@ -1,0 +1,89 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/responder/index",
+    "pages/knowledge/index",
+    "pages/aidEventList/index",
+    "pages/aidEventDetail/index",
+    "pages/questionnaire/index",
+    "pages/question/index",
+    "pages/questionnaireAnswer/index",
+    "pages/my/index",
+    "pages/about/index",
+    "pages/learnFirstAid/index",
+    "pages/purchaseIntentionRegistration/index",
+    "pages/toBeResponser/index",
+    "pages/emergencyResponderInfo/index",
+    "pages/setting/index",
+    "pages/userProfile/index",
+    "pages/pointsDetail/index",
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/videoDetail/index",
+    "pages/userPrivacyAgreement/index",
+    "pages/userServiceAgreement/index",
+    "pages/test/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "plugins": {
+    "player": {
+       "version": "2.5.6",
+       "provider": "wxa75efa648b60994b"
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示" 
+    },
+    "scope.userInfo": {
+      "desc": "你的头像、昵称将用于小程序的个性化展示"
+    },
+    "scope.userProfile": {
+      "desc": "用于获取用户头像"
+    }
+  },
+  "requiredPrivateInfos":[
+    "chooseLocation",
+    "getLocation",
+    "chooseAddress"
+  ],
+  "tabBar": {
+    "color": "#868686",
+    "selectedColor": "#BE030E",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "急救设备",
+        "iconPath": "static/icon/icon-aed-map.png",
+        "selectedIconPath": "static/icon/icon-aed-map-active.png"
+      },
+      {
+        "pagePath": "pages/responder/index",
+        "text": "急救人员",
+        "iconPath": "static/icon/icon-responder.png",
+        "selectedIconPath": "static/icon/icon-responder-active.png"
+      },
+      {
+        "pagePath": "pages/knowledge/index",
+        "text": "急救科普",
+        "iconPath": "static/icon/icon-knowledge-center.png",
+        "selectedIconPath": "static/icon/icon-knowledge-center-active.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "static/icon/icon-my.png",
+        "selectedIconPath": "static/icon/icon-my-active.png"
+      }
+    ]
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

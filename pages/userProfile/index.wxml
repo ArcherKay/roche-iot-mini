@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="form">
+    <view class="form-item">
+      <label class="label">姓名</label>
+      <input class="input" type="text" value="{{name}}" bindinput="onNameInput"/>
+    </view>
+    <view class="form-item">
+      <label class="label">性别</label>
+      <picker mode="selector" range="{{genders}}" value="{{genderIndex}}" bindchange="onGenderChange">
+        <view class="picker">{{genders[genderIndex]}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <label class="label">身份证号</label>
+      <input class="input" type="text" value="{{idCard}}" bindinput="onIdNumberInput"/>
+    </view>
+    <view class="form-item">
+      <label class="label">联系方式</label>
+      <input class="input" type="text" value="{{contact}}" bindinput="onPhoneInput"/>
+    </view>
+    <button class="submit-button" bindtap="onSubmit">提交</button>
+  </view>
+</view>

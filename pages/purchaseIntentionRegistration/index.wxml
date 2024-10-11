@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="form">
+    <view class="form-item">
+      <label class="form-label">姓名</label>
+      <input class="form-input" type="text" placeholder="请输入您的姓名" value="{{name}}" bindinput="handleInputChange" data-field="name" />
+    </view>
+
+    <view class="form-item">
+      <label class="form-label">联系电话</label>
+      <input class="form-input" type="tel" placeholder="请输入您的联系电话" value="{{phone}}" bindinput="handleInputChange" data-field="phone" />
+    </view>
+
+    <view class="form-item">
+      <label class="form-label">邮箱地址</label>
+      <input class="form-input" type="email" placeholder="请输入您的邮箱地址" value="{{email}}" bindinput="handleInputChange" data-field="email" />
+    </view>
+
+    <view class="form-item">
+      <label class="form-label">单位名称</label>
+      <input class="form-input" type="text" placeholder="请输入您的单位名称" value="{{company}}" bindinput="handleInputChange" data-field="company" />
+    </view>
+
+    <view class="form-item">
+      <label class="form-label">购买数量</label>
+      <input class="form-input" type="number" placeholder="请输入购买数量" value="{{buyAmount}}" bindinput="handleInputChange" data-field="buyAmount" />
+    </view>
+
+    <view class="form-item">
+      <label class="form-label">备注或其他需求</label>
+      <textarea class="form-textarea" placeholder="请输入您的备注或其他需求" value="{{remark}}" bindinput="handleInputChange" data-field="remark"></textarea>
+    </view>
+
+    <view class="button-container">
+      <button class="submit-button" bindtap="handleSubmit">提交</button>
+    </view>
+  </view>
+</view>

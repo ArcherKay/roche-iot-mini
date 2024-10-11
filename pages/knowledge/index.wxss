@@ -1,0 +1,129 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 5px; /* 修改左右边距为5px */
+  width: 100%;
+  height: 100%;
+  /* background-color: blue; */
+}
+
+.video-item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  /* background-color: aqua; */
+  width: 94%;
+}
+
+
+.icon-container {
+  position: relative;
+  width: 126px;
+  height: 90px;
+  border-radius: 10px; /* 这是为了确保背景图片的圆角 */
+  overflow: hidden; /* 这是为了确保圆角效果 */
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+}
+
+.top-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 17px;
+  background: rgba(0, 45, 216, 0.36); /* 半透明层 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 10px; /* 确保左上角是圆角 */
+  border-bottom-right-radius: 17px; /* 确保右上角是圆角 */
+}
+
+.top-title {
+  color: white;
+  font-size: 9px;
+  font-weight: 400;
+  /* color: #666666; */
+}
+
+
+
+
+.overlay {
+  position: absolute;
+  top: 27px;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  background: rgba(0, 53, 142, 0.5); /* 半透明层 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: #ffe600;
+  font-size: 14px;
+  /* font-size: 24px; */
+  font-family: AlibabaPuHuiTi-Bold, AlibabaPuHuiTi;
+  font-weight: bold;
+}
+
+
+.video-image {
+  width: 126px;
+  height: 90px;
+  margin-right: 10px;
+}
+
+.video-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.video-duration,
+.video-progress {
+  font-size: 14px;
+  color: #888;
+}
+
+.buttons {
+  /* width: 100px; */
+  position: fixed; /* 固定位置 */
+  top: 120px; /* 调整为所需位置 */
+  right: 10px; /* 调整为所需位置 */
+  display: flex;
+  flex-direction: column;
+  /* background-color: blueviolet; */
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+
+}
+
+.button .icon {
+  width: 50px; /* 根据您的UI图调整大小 */
+  height: 50px; /* 根据您的UI图调整大小 */
+}

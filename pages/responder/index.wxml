@@ -1,0 +1,84 @@
+<view class="container">
+  <map id="map" class="map" markers="{{markers}}" latitude="{{latitude}}" longitude="{{longitude}}" scale="14" show-location  bindmarkertap="onMarkerTap" bindtap="onMapTap" >
+  </map>
+  
+  <view class="buttons">
+    <view class="button heart" bindtap="onLocateMeButtonTap">
+      <image src="/static/icon/clocation.svg" class="icon"/>
+    </view>
+    <!-- <view class="button add" bindtap="onScanButtonTap">
+      <image src="/static/icon/add.svg" class="icon"/>
+    </view> -->
+    <!-- <view class="button scan" bindtap="onCityPickerTap">
+      <image src="/static/icon/lock.svg" class="icon"/>
+    </view> -->
+  </view>
+
+  <view class='aed-info-mask' wx:if="{{showInfo&&useAedInfoMask}}" catchtap="closeInfo"></view> 
+  <view class="aed-info" wx:if="{{showInfo}}" catchtap="preventClose">
+    <view class="close-button" bindtap="closeInfo">
+      <view >X</view>
+    </view>
+    <!-- <view class="aed-header">
+      <view class="aed-title">AED 信息</view>
+    </view> -->
+    <view class="aed-body">
+      <view class="head-depart">
+        <view >
+          <image class="aed-image" src="{{ahaImage}}" mode="aspectFill"></image>
+        </view>
+        <view class="info-detail"> 
+          <text class="aed-sn">姓名: {{ahaName}}</text>
+          <text class="aed-manufacturer">类型: {{ahaType}}</text>
+          <text class="aed-status">证书: {{certificateCategory}}</text>
+        </view>
+      </view>
+      
+      <view class="aed-details">
+        <text class="aed-address">联系方式: {{contactNumber}}</text>
+        <text class="aed-range">距离: {{Range}} km</text>
+        <text class="aed-detail-position">详细位置: {{address}}</text>
+      </view>
+    </view>
+    <view class="aed-footer">
+      <button class="aed-button" bindtap="navigateTo">导航</button>
+    </view>
+  </view>
+
+  <!-- 城市选择下拉列表 -->
+  <!-- <picker mode="selector" range="{{cityNames}}" bindchange="onCityChange">
+    <view class="city-picker">
+      {{selectedCity+'>'+selectedCounty}} <text class="triangle">▼</text>
+    </view>
+  </picker> -->
+
+  <!-- <picker mode="region" value="{{[selectedProvince, selectedCity, selectedCounty]}}" bindchange="onCityChange">
+    <view class="city-picker">
+      {{selectedCity+'>'+selectedCounty}} <text class="triangle">▼</text>
+    </view>
+  </picker> -->
+  <view class='area-picker'>
+    <picker mode="multiSelector" range="{{multiArray}}" value="{{multiIndex}}"  bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange">
+      <view class="city-picker">
+        {{selectedCity}} <text class="triangle">▼</text>
+      </view>
+    </picker>
+    <picker mode="selector" range="{{districts}}" value="{{districtIndex}}" bindchange="bindPickerChange">
+      <view class="county-picker">
+        {{selectedCounty}} <text class="triangle">▼</text>
+      </view>
+  </picker>
+  </view>
+
+
+
+   <!-- 半径选择下拉列表 -->
+  <picker mode="selector" range="{{deviceRidumArr}}"value="{{ridumIndex}}"  bindchange="onRidumChange">
+    <view class="radium-picker">
+      {{deviceRidumDisplay}} <text class="triangle">▼</text>
+    </view>
+  </picker>
+
+</view>
+
+

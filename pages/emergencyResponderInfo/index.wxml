@@ -1,0 +1,110 @@
+<view class="container">
+  <view class="form">
+    <!-- 审核状态 -->
+    <view class="status">
+      <text class="status-text">
+        当前审核状态：{{auditStatusMap[registrationInfo.auditStatus]}}
+      </text>
+    </view>
+
+    <!-- 如果状态为未通过，显示未通过原因和重新提交按钮 -->
+    <view wx:if="{{registrationInfo.auditStatus == 3}}" >
+      <view class="form-item">
+        <label class="form-label">未通过原因</label>
+        <view class="form-textarea">
+          {{registrationInfo.auditFailureReason}}
+        </view>
+      </view>
+      <!-- 重新提交按钮 -->
+      <view class="button-container"  class="form-item">
+        <button class="resubmit-button" bindtap="handleResubmit">重新提交</button>
+      </view>
+    </view>
+
+    <!-- 姓名 -->
+    <view class="form-item">
+      <label class="form-label">姓名</label>
+      <view class="form-input">
+        {{registrationInfo.name}}
+      </view>
+    </view>
+
+    <!-- 联系电话 -->
+    <view class="form-item">
+      <label class="form-label">联系电话</label>
+      <view class="form-input">
+        {{registrationInfo.contactNumber}}
+      </view>
+    </view>
+
+    <!-- 地址 -->
+    <view class="form-item">
+      <label class="form-label">地址</label>
+      <view class="form-input">
+        {{registrationInfo.address}}
+      </view>
+    </view>
+
+    <!-- AHA类型 -->
+    <view class="form-item">
+      <label class="form-label">AHA类型</label>
+      <view class="form-input">
+        {{registrationInfo.ahaType}}
+      </view>
+    </view>
+
+    <!-- 证书类型 -->
+    <view class="form-item">
+      <label class="form-label">证书类型</label>
+      <view class="form-input">
+        {{registrationInfo.certificateCategory}}
+      </view>
+    </view>
+
+    <!-- 是否医务人员 -->
+    <view class="form-item">
+      <label class="form-label">是否医务人员</label>
+      <view class="form-input">
+        {{registrationInfo.isMedicalStaff}}
+      </view>
+    </view>
+
+    <!-- 证书附件 -->
+    <view class="form-item">
+      <label class="form-label">证书附件</label>
+      <view class="image-grid">
+        <block wx:for="{{registrationInfo.certificateAttachment}}" wx:key="index">
+          <view class="image-item">
+            <image
+              src="{{item}}"
+              mode="aspectFill"
+              class="uploaded-image"
+              data-url="{{item}}"
+              data-type="certificate"
+              bindtap="previewImage"
+            />
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 身份证附件 -->
+    <!-- <view class="form-item">
+      <label class="form-label">身份证附件</label>
+      <view class="image-grid">
+        <block wx:for="{{registrationInfo.idCardAttachment}}" wx:key="index">
+          <view class="image-item">
+            <image
+              src="{{item}}"
+              mode="aspectFill"
+              class="uploaded-image"
+              data-url="{{item}}"
+              data-type="idCard"
+              bindtap="previewImage"
+            />
+          </view>
+        </block>
+      </view>
+    </view> -->
+  </view>
+</view>

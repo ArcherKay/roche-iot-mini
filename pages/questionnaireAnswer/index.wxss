@@ -1,0 +1,148 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #00c2b3;
+  color: white;
+}
+
+.back-button {
+  margin-right: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.result-card {
+  background-color: white;
+  margin: 20rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  position: relative;
+}
+
+.result-title {
+  font-size: 28rpx;
+  color: #888;
+}
+
+.result-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 10rpx;
+}
+
+.score {
+  font-size: 60rpx;
+  color: #00c2b3;
+  font-weight: bold;
+}
+
+.question-count {
+  font-size: 40rpx;
+  color: #00c2b3;
+}
+
+.result-label {
+  font-size: 24rpx;
+  color: #888;
+  text-align: right;
+}
+
+.container-status-stamp {
+  position: relative;
+}
+
+.status-stamp {
+  position: absolute;
+  top: -100rpx;
+  right: 120rpx;
+  border: 2rpx solid;
+  padding: 5rpx 10rpx;
+  font-size: 30rpx;
+  transform: rotate(-25deg);
+}
+/* .status-stamp {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  color: red;
+  border: 2rpx solid red;
+  padding: 5rpx 10rpx;
+  font-size: 24rpx;
+  transform: rotate(15deg);
+}  */
+/* .status-good-stamp {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  color: rgb(0, 255, 0);
+  border: 2rpx solid rgb(0, 255, 0);
+  padding: 5rpx 10rpx;
+  font-size: 24rpx;
+  transform: rotate(15deg);
+} */
+
+
+.question-list {
+  background-color: white;
+  margin: 20rpx;
+  border-radius: 10rpx;
+}
+
+.question-item {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.question-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.question-number {
+  color: #ff9900;
+  font-weight: bold;
+  margin-right: 10rpx;
+}
+
+.question-title {
+  flex: 1;
+}
+
+.question-type {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.answer-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  margin-top: 10rpx;
+}
+
+.correct-answer {
+  color: #00c2b3;
+}
+
+.your-answer {
+  color: #ff9900;
+}
+
+.analysis-button {
+  text-align: right;
+  color: #00c2b3;
+  font-size: 28rpx;
+  margin-top: 10rpx;
+}

@@ -1,0 +1,8 @@
+<view class="container">
+  <view wx:if="{{type == 1}}">
+    <web-view src="{{url}}"></web-view>
+  </view>
+  <view wx:if="{{type == 0}}">
+    <rich-text nodes="{{htmlContent}}"></rich-text>
+  </view>
+</view>

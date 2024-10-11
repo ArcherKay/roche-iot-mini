@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="profile-card">
+    <view class="avatar-section" >
+      <block wx:if="{{phoneNumber}}">
+        <button class="chooseAvatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" >
+          <image class="avatar" src="{{avatar}}" mode="aspectFill"></image>
+        </button>
+        <view class="user-info">
+          <text class="username">{{userName}}</text>
+          <text class="phone">{{phoneNumber}}</text>
+        </view>
+      </block>
+      <block wx:else>
+        <image class="avatar" src="{{avatar}}" mode="aspectFill"></image>
+        <button class="login-button" bindtap="onLogin">登录</button>
+      </block>
+
+      
+    </view>
+    <image class="edit-icon" src="/static/icon/item-setting.svg" bindtap="editProfile"></image>
+    <text class="points">当前积分: {{points}}</text>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="navigateToUserProfile">
+      <image class="menu-icon" src="/static/icon/item-edit.svg"></image>
+      <view class="menu-text">用户资料更改</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+    <view class="menu-item" bindtap="navigateToPointsDetail">
+      <image class="menu-icon" src="/static/icon/item-record.svg"></image>
+      <view class="menu-text">积分明细</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+    <view class="menu-item" bindtap="navigateToFirstAid">
+      <image class="menu-icon" src="/static/icon/item-add.svg"></image>
+      <view class="menu-text">我要学急救</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+    <view class="menu-item" bindtap="navigateToPurchaseIntent">
+      <image class="menu-icon" src="/static/icon/item-buy.svg"></image>
+      <view class="menu-text">我要买AED</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+    <view class="menu-item" bindtap="navigateToResponser">
+      <image class="menu-icon" src="/static/icon/item-spon.svg"></image>
+      <view class="menu-text">成为志愿者</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+  </view>
+
+</view>

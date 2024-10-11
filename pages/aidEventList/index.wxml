@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="filter-container">
+    <picker mode="selector" range="{{cityNames}}" value="{{selectedCityIndex}}" bindchange="onCityChange">
+      <view class="filter-picker">
+        城市: {{cityNames[selectedCityIndex]}}
+      </view>
+    </picker>
+  </view>
+  <block wx:for="{{filteredArticles}}" wx:key="id">
+    <view class="article-item" bindtap="goToArticle" data-article="{{item}}">
+      <image class="article-image" src="{{item.image || '/static/img/article-icon.jpg'}}" />
+      <view class="article-info">
+        <text class="article-title">{{item.title}}</text>
+        <text class="article-author">{{item.author}}</text>
+        <text class="article-publish-date">{{item.publishDate}}</text>
+      </view>
+    </view>
+  </block>
+</view>

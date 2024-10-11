@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "急救视频",
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
+}

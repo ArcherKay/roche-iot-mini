@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "播放页",
+  "usingComponents": {
+    "player-component": "plugin://player/video"
+  }
+}

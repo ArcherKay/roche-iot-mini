@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<svg width="52.8" height="52.8" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" enable-background="new 0 0 52.8 52.8" version="1.1" xml:space="preserve">
+ <style type="text/css">.st0{fill:#182987;}
+	.st1{fill:#F2F2F2;}
+	.st2{enable-background:new    ;}
+	.st3{fill:#FFFFFF;}</style>
+ <title>20220107久心小程序</title>
+ <g class="layer">
+  <title>Layer 1</title>
+  <path class="st0" d="m13,0l26.9,0c7.2,0 13,5.8 13,13l0,26.9c0,7.2 -5.8,13 -13,13l-26.9,0c-7.2,0 -13,-5.8 -13,-13l0,-26.9c0,-7.2 5.8,-13 13,-13z" id="svg_1"/>
+  <g class="st2" id="svg_4" transform="matrix(1 0 0 1 0 0)">
+   <text fill="#ffffff" font-family="Serif" font-size="24" font-style="normal" font-weight="normal" id="svg_10" stroke-width="0" text-anchor="middle" transform="matrix(0.301583 0 0 0.297435 22.5585 36.8753)" x="15.43" xml:space="preserve" y="39.43">当前位置</text>
+  </g>
+  <path d="m10.21,22.83l0,0c0,-9.08 7.28,-16.44 16.25,-16.44l0,0c4.31,0 8.44,1.73 11.49,4.81c3.05,3.08 4.76,7.26 4.76,11.62l0,0c0,9.08 -7.28,16.44 -16.25,16.44l0,0c-8.97,0 -16.25,-7.36 -16.25,-16.44zm8.12,0l0,0c0,4.54 3.64,8.22 8.12,8.22c4.49,0 8.12,-3.68 8.12,-8.22c0,-4.54 -3.64,-8.22 -8.12,-8.22l0,0c-4.49,0 -8.12,3.68 -8.12,8.22z" fill="#ffffff" id="svg_11" transform="matrix(1 0 0 1 0 0)"/>
+ </g>
+</svg>

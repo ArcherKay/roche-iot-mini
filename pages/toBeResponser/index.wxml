@@ -1,0 +1,165 @@
+<view class="container">
+  <view class="form">
+    <!-- 姓名 -->
+    <view class="form-item">
+      <label class="form-label">姓名</label>
+      <input
+        class="form-input"
+        type="text"
+        placeholder="请输入您的姓名"
+        value="{{name}}"
+        bindinput="handleInputChange"
+        data-field="name"
+      />
+    </view>
+
+    <!-- 联系电话 -->
+    <view class="form-item">
+      <label class="form-label">联系电话</label>
+      <input
+        class="form-input"
+        type="tel"
+        placeholder="请输入您的联系电话"
+        value="{{contactNumber}}"
+        bindinput="handleInputChange"
+        data-field="contactNumber"
+      />
+    </view>
+
+    <!-- 所在地区（省市区选择器） -->
+    <view class="form-item">
+      <label class="form-label">所在地区</label>
+      <picker
+        mode="region"
+        value="{{[selectedProvince, selectedCity, selectedCounty]}}"
+        bindchange="onAreaChange"
+      >
+        <view class="form-input">
+          {{selectedProvince || '请选择省'}}
+          {{selectedCity || '市'}}
+          {{selectedCounty || '区/县'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 详细地址 -->
+    <view class="form-item">
+      <label class="form-label">详细地址</label>
+      <input
+        class="form-input"
+        type="text"
+        placeholder="请输入详细地址"
+        value="{{detailAddress}}"
+        bindinput="handleInputChange"
+        data-field="detailAddress"
+      />
+    </view>
+
+    <!-- AHA类型 -->
+    <view class="form-item">
+      <label class="form-label">AHA类型</label>
+      <picker
+        mode="selector"
+        range="{{ahaTypeOptions}}"
+        value="{{ahaTypeIndex}}"
+        bindchange="handlePickerChange"
+        data-field="ahaTypeIndex"
+      >
+        <view class="form-input">
+          {{ahaTypeOptions[ahaTypeIndex]}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 证书类型 -->
+    <view class="form-item">
+      <label class="form-label">证书类型</label>
+      <picker
+        mode="selector"
+        range="{{certificateCategoryOptions}}"
+        value="{{certificateCategoryIndex}}"
+        bindchange="handlePickerChange"
+        data-field="certificateCategoryIndex"
+      >
+        <view class="form-input">
+          {{certificateCategoryOptions[certificateCategoryIndex]}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 是否医务人员 -->
+    <view class="form-item">
+      <label class="form-label">是否医务人员</label>
+      <picker
+        mode="selector"
+        range="{{isMedicalStaffOptions}}"
+        value="{{isMedicalStaffIndex}}"
+        bindchange="handlePickerChange"
+        data-field="isMedicalStaffIndex"
+      >
+        <view class="form-input">
+          {{isMedicalStaffOptions[isMedicalStaffIndex]}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 证书附件上传区域 -->
+    <view class="form-item">
+      <label class="form-label">证书附件</label>
+      <view class="image-grid">
+        <block wx:for="{{certificateImages}}" wx:key="index">
+          <view class="image-item">
+            <image src="{{item.url}}" mode="aspectFill" class="uploaded-image" />
+            <view
+              class="delete-button"
+              data-index="{{index}}"
+              bindtap="removeCertificateImage"
+            >
+              ✕
+            </view>
+          </view>
+        </block>
+      </view>
+      <!-- 上传按钮 -->
+      <button
+        class="upload-button"
+        bindtap="chooseCertificateImages"
+        wx:if="{{certificateImages.length < maxCertificateImages}}"
+      >
+        上传证书附件（{{certificateImages.length}}/{{maxCertificateImages}}）
+      </button>
+    </view>
+
+    <!-- 身份证附件上传区域 -->
+    <!-- <view class="form-item">
+      <label class="form-label">身份证附件</label>
+      <view class="image-grid">
+        <block wx:for="{{idCardImages}}" wx:key="index">
+          <view class="image-item">
+            <image src="{{item.url}}" mode="aspectFill" class="uploaded-image" />
+            <view
+              class="delete-button"
+              data-index="{{index}}"
+              bindtap="removeIdCardImage"
+            >
+              ✕
+            </view>
+          </view>
+        </block>
+      </view>
+      
+      <button
+        class="upload-button"
+        bindtap="chooseIdCardImages"
+        wx:if="{{idCardImages.length < maxIdCardImages}}"
+      >
+        上传身份证附件（{{idCardImages.length}}/{{maxIdCardImages}}）
+      </button>
+    </view> -->
+
+    <!-- 提交按钮 -->
+    <view class="button-container">
+      <button class="submit-button" bindtap="handleSubmit">提交</button>
+    </view>
+  </view>
+</view>

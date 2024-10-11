@@ -1,0 +1,22 @@
+<view class="container">
+  <map id="map" class="map" latitude="{{latitude}}" longitude="{{longitude}}" scale="14" markers="{{markers}}" show-location bindmarkertap="onMarkerTap" bindtap="onMapTap">
+  </map>
+  
+  <view class="toggle-button" bindtap="toggleList">
+    {{showList ? '隐藏列表' : '显示列表'}}
+  </view>
+  <view class="rescuer-list" wx:if="{{showList}}" catchtap="preventClose">
+  <scroll-view scroll-y="true" style="height: 100%;" scroll-into-view="{{scrollIntoViewId}}">
+      <block wx:for="{{aidData}}" wx:key="id">
+        <view id="{{'rescuer-' + index}}" class="rescuer-item" bindtap="selectRescuer" data-aidid="{{item.id}}" data-latitude="{{item.latitude}}" data-longitude="{{item.longitude}}">
+          <image class="rescuer-icon" src="/static/icon/aha1.jpg" />
+          <view class="rescuer-info">
+            <text class="rescuer-name">{{item.name}} {{item.contactNumber}}</text>
+            <text class="rescuer-details">急救员类型：{{item.ahaType}}，拥有{{item.certificateCategory}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  
+</view>

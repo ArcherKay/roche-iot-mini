@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="header">
+    <view class="back-button">
+      <text class="iconfont icon-back"></text>
+    </view>
+    <view class="title">急救知识小测</view>
+  </view>
+
+  <view class="result-card">
+    <view class="result-title">问答成绩</view>
+    <view class="result-content">
+      <view class="score">{{result}}分</view>
+      <view class="question-count">{{finishQuestionAmount}}个</view>
+    </view>
+    <view class="result-label">
+      <text>完成答题数</text>
+    </view>
+    <view class="container-status-stamp">
+      <view class="status-stamp" wx:if="{{result < 60}}" style="background-color: lightcoral; color: red;">不合格</view>
+      <view class="status-stamp" wx:if="{{result >= 60 && result < 80}}" style="background-color: lightgreen; color: green;">合格</view>
+      <view class="status-stamp" wx:if="{{result >= 80}}" style="background-color: lightblue; color: blue;">优秀</view>
+    </view>
+  </view>
+
+  <view class="question-list">
+    <block wx:for="{{questions}}" wx:key="questionId">
+      <view class="question-item">
+        <view class="question-header">
+          <text class="question-number">{{index + 1}}、</text>
+          <text class="question-title">{{item.title}}</text>
+          <text class="question-type">{{item.type === 0 ? '(单选题)' : item.type === 1 ? '(判断题)' : '(多选题)'}}</text>
+        </view>
+        <view class="answer-info">
+          <text class="correct-answer">正确答案: {{item.answer}}</text>
+          <text class="your-answer">你的答案: {{item.yourAnswer}}</text>
+        </view>
+        <view class="analysis-button" bindtap="showAnalysis" data-index="{{index}}">
+          查看解析
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

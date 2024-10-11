@@ -1,0 +1,30 @@
+<view class='container'>
+  <view class='app-logo'>
+    <image src='../../static/img/uwpLogo.png'></image>
+  </view>
+  <button wx:if="{{!agreelog}}" type='button' class='register-btn' bindtap="tips">手机号快捷登录</button>
+  <button wx:if="{{agreelog}}" type='button' class='register-btn' open-type="getPhoneNumber" bindgetphonenumber="qetMobileNumber">手机号快捷登录</button>
+ 
+  <!-- <view class='other-container'>
+    <view class='line'></view>
+    <view class='other-login'>其它方式登录</view>
+    <view class='line'></view>
+  </view> -->
+  <!-- <view class='verify-login-link' bindtap='navigateToLogin'>
+    <image src = '../../images/icon/verifylogin.png' />
+  </view> -->
+  <view  class="agree-user-policy">
+    <view class='agree-user'>
+      <view class='btn-agree-link'>
+        <radio value="" checked="{{agreelog}}" bindtap='chagree'/>
+      </view>
+      <view class='user-agree-title'>我同意救在心间</view>
+      <view class="user-agreement-link">
+        <text bindtap='navigateUserprivacy' open-type="redirect" class='user-agreement'>《用户协议》</text>       
+      </view>    
+      <view class='user-policy-link'>
+        <text bindtap='navigatePrivacy' open-type="redirect" class='user-agreement' >《隐私政策》</text>
+      </view>
+    </view>
+  </view>
+</view>
