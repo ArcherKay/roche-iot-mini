@@ -1,0 +1,107 @@
+page {
+  min-height: 100%;
+  background: #f2f7fb;
+  color: #374151;
+  font-family: "Avenir Next", "PingFang SC", sans-serif;
+  font-size: 30rpx;
+}
+
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 28rpx 24rpx 48rpx;
+}
+
+.list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 8rpx 18rpx;
+}
+
+.page-title {
+  color: #29465b;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.device-count {
+  color: #6b8293;
+  font-size: 30rpx;
+}
+
+.device-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.device-card {
+  position: relative;
+  padding: 22rpx 24rpx;
+  border: 1rpx solid #e2edf5;
+  border-left: 6rpx solid #a9cce5;
+  border-radius: 12rpx;
+  background: #fff;
+  box-shadow: 0 6rpx 18rpx rgba(45, 91, 131, .06);
+}
+
+.device-card.selected {
+  border-left-color: #3e8fc9;
+  background: #f9fcff;
+}
+
+.device-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.device-name {
+  min-width: 0;
+  color: #36566c;
+  font-weight: 600;
+}
+
+.device-status {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+}
+
+.device-status.online {
+  color: #258052;
+  background: #e8f5ed;
+}
+
+.device-status.offline {
+  color: #6b7280;
+  background: #f1f3f5;
+}
+
+.device-id,
+.device-meta {
+  margin-top: 12rpx;
+  color: #6b8293;
+  font-size: 30rpx;
+  word-break: break-all;
+}
+
+.selected-mark {
+  margin-top: 14rpx;
+  color: #286fa2;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.empty-state {
+  margin-top: 12rpx;
+  padding: 64rpx 24rpx;
+  border: 1rpx solid #dce8f1;
+  border-radius: 12rpx;
+  background: #fff;
+  color: #6b7280;
+  text-align: center;
+}

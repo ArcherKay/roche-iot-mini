@@ -1,0 +1,48 @@
+<view class="page">
+  <view class="page-heading">
+    <view>
+      <view class="page-title">分享列表</view>
+      <view class="device-id"> {{deviceId}}</view>
+    </view>
+    <view wx:if="{{total}}" class="page-count">{{total}} 条</view>
+  </view>
+
+  <button class="share-invite-button" open-type="share">分享设备</button>
+
+  <view wx:if="{{isLoading}}" class="state-message">正在加载分享记录...</view>
+  <block wx:else>
+    <view wx:if="{{shareRecords.length}}" class="device-list">
+      <view wx:for="{{shareRecords}}" wx:key="recordKey" class="user-card">
+        <view class="user-card-heading">
+          <view class="user-avatar">{{item.avatarText}}</view>
+          <view class="user-info">
+            <view class="device-name">{{item.displayName}}</view>
+            <view class="record-detail">分享于 {{item.shareTimeText}}</view>
+          </view>
+          <view wx:if="{{item.roleName}}" class="record-role {{item.isAdmin ? 'admin-role' : ''}}">{{item.roleName}}</view>
+        </view>
+        <view class="record-actions">
+            <button
+              wx:if="{{!item.isAdmin && item.targetUserId}}"
+              class="record-action admin-action"
+              data-user-id="{{item.targetUserId}}"
+              disabled="{{updatingUserId === item.targetUserId}}"
+              bindtap="onSetAdmin"
+            >{{updatingUserId === item.targetUserId ? '处理中...' : '设为管理员'}}</button>
+            <button
+              wx:if="{{item.targetUserId}}"
+              class="record-action remove-action"
+              data-user-id="{{item.targetUserId}}"
+              disabled="{{updatingUserId === item.targetUserId}}"
+              bindtap="onRemoveShare"
+            >取消分享</button>
+        </view>
+      </view>
+    </view>
+    <view wx:elif="{{error}}" class="error-state">
+      <view>{{error}}</view>
+      <button class="retry-button" bindtap="onRetry">重试</button>
+    </view>
+    <view wx:else class="empty-state">该设备暂无分享记录</view>
+  </block>
+</view>

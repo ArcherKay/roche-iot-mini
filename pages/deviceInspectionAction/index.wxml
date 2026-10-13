@@ -1,0 +1,133 @@
+<view class="container">  
+  <!-- 标题区域 -->  
+  <view class="page-header">  
+    <text class="page-title">新增净水器</text>  
+  </view>  
+
+  <!-- 设备信息区域 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">设备编号</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入设备编号"  
+        maxlength="15"  
+        value="{{deviceId}}"  
+        bindinput="onDeviceIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">运行状态</text>  
+      <radio-group  
+        class="radio-group"  
+        bindchange="onRunningStatusChange"  
+        disabled="{{isViewMode}}"  
+      >  
+        <label class="radio-item">  
+          <radio value="正常" checked="{{runningStatus === '正常'}}" /> 正常  
+        </label>  
+        <label class="radio-item">  
+          <radio value="异常" checked="{{runningStatus === '异常'}}" /> 异常  
+        </label>  
+      </radio-group>  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">电极片状态</text>  
+      <radio-group  
+        class="radio-group"  
+        bindchange="onElectrodeStatusChange"  
+        disabled="{{isViewMode}}"  
+      >  
+        <label class="radio-item">  
+          <radio value="正常" checked="{{electrodeStatus === '正常'}}" /> 正常  
+        </label>  
+        <label class="radio-item">  
+          <radio value="异常" checked="{{electrodeStatus === '异常'}}" /> 异常  
+        </label>  
+      </radio-group>  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">电极片包装</text>  
+      <radio-group  
+        class="radio-group"  
+        bindchange="onElectrodePackagingChange"  
+        disabled="{{isViewMode}}"  
+      >  
+        <label class="radio-item">  
+          <radio value="完好" checked="{{electrodePackaging === '完好'}}" /> 完好  
+        </label>  
+        <label class="radio-item">  
+          <radio value="破损" checked="{{electrodePackaging === '破损'}}" /> 破损  
+        </label>  
+      </radio-group>  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">整机包装</text>  
+      <radio-group  
+        class="radio-group"  
+        bindchange="onOuterPackagingChange"  
+        disabled="{{isViewMode}}"  
+      >  
+        <label class="radio-item">  
+          <radio value="完好" checked="{{outerPackaging === '完好'}}" /> 完好  
+        </label>  
+        <label class="radio-item">  
+          <radio value="破损" checked="{{outerPackaging === '破损'}}" /> 破损  
+        </label>  
+      </radio-group>  
+    </view>  
+  </view>  
+
+  <!-- 巡检内容区域 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">巡检内容</text>  
+      <textarea  
+        class="form-textarea"  
+        placeholder="请输入巡检内容"  
+        value="{{inspectionContent}}"  
+        bindinput="onInspectionContentInput"  
+        disabled="{{isViewMode}}"  
+      ></textarea>  
+    </view>  
+  </view>  
+
+  <!-- 照片区域 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">现场照片</text>  
+      <view class="photo-container">  
+        <block wx:for="{{photos}}" wx:key="index">  
+          <view class="photo-item">  
+            <image class="photo" src="{{item}}" />  
+            <view  
+              class="photo-delete"  
+              bindtap="onDeletePhoto"  
+              data-index="{{index}}"  
+              wx:if="{{!isViewMode}}"  
+            >  
+              ×  
+            </view>  
+          </view>  
+        </block>  
+        <view  
+          class="photo-item add-photo"  
+          bindtap="onAddPhoto"  
+          wx:if="{{photos.length < 6 && !isViewMode}}"  
+        >  
+          <text class="add-photo-icon">+</text>  
+        </view>  
+      </view>  
+    </view>  
+  </view>  
+
+  <!-- 提交按钮区域 -->  
+  <view class="submit-container" wx:if="{{!isViewMode}}">  
+    <button class="submit-button" bindtap="onSubmit">提交</button>  
+  </view>  
+</view>  

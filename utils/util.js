@@ -13,7 +13,7 @@ class utils{
     }  
     // 不需要带token请求的，需要needToken=false
     if (needToken) {
-      if (that.app.globalData.phone == null || that.app.globalData.phone == '' || that.app.globalData.phone == 0) {
+      if ((that.app.globalData.phone == null || that.app.globalData.phone == '' || that.app.globalData.phone == 0) && !that.app.globalData.mesIotAccessToken) {
         console.log("No token found, stop requesting");
         // 通知调用者请求失败，因为没有 token
         if (options.fail) options.fail(new Error('No token found. User is not logged in.'));
@@ -74,7 +74,7 @@ class utils{
   // 登入页
   navigateToLogin() {
     const that = this
-    if (that.app.globalData.phone == null || that.app.globalData.phone == '' || that.app.globalData.phone == 0) {
+    if ((that.app.globalData.phone == null || that.app.globalData.phone == '' || that.app.globalData.phone == 0) && !that.app.globalData.mesIotAccessToken) {
       let pageUrl = '/pages/login/login';
       if (that.navigating === true) {
         return
@@ -91,7 +91,7 @@ class utils{
   };
   isLogin() {
     const that = this
-    if (that.app.globalData.phone == null || that.app.globalData.phone == '' || that.app.globalData.phone == 0) {
+    if ((that.app.globalData.phone == null || that.app.globalData.phone == '' || that.app.globalData.phone == 0) && !that.app.globalData.mesIotAccessToken) {
       return false
     }
     return true

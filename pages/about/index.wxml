@@ -1,42 +1,42 @@
 <view class="container">
   <view class="header">
-    <view class="company-name">厦门唯爱普健康管理有限公司</view>
+    <view class="company-name">萨奇水务（厦门）股份有限公司</view>
   </view>
 
   <view class="section">
     <view class="section-title">公司简介</view>
     <view class="section-content">
-      厦门唯爱普健康管理有限公司是一家致力于健康管理和急救培训的专业机构，提供全面的健康管理服务和专业的急救培训课程。
+      萨奇水务（厦门）股份有限公司专注于水务运营、供排水工程、智慧水务管理及水环境综合服务，致力于为客户提供高质量、可持续的水务解决方案。
     </view>
   </view>
 
   <view class="section">
-    <view class="section-title">公司历史</view>
+    <view class="section-title">公司发展</view>
     <view class="section-content">
-      公司成立于2020年，自成立以来，我们不断发展壮大，服务覆盖全国，致力于为更多人提供专业的健康管理和急救培训服务。
+      公司秉承“专业、创新、服务、共赢”的发展理念，不断提升技术能力和服务水平，持续推进水务行业的规范化、智能化和高效化发展。
     </view>
   </view>
 
   <view class="section">
     <view class="section-title">主营业务</view>
     <view class="section-content">
-      我们主要提供以下服务：健康管理、急救培训、健康咨询等。
+      我们主要提供供水运营、污水处理、管网维护、给排水工程、智慧化水务管理及相关技术咨询与服务。
     </view>
   </view>
 
   <view class="section">
     <view class="section-title">核心团队</view>
     <view class="section-content">
-      我们拥有一支经验丰富的专业团队，包括医生、健康管理师、急救培训师等，为客户提供高质量的服务。
+      我们拥有一支经验丰富的工程技术、运营管理和项目服务团队，能够为客户提供从方案设计到工程实施、后期运营的全流程服务支持。
     </view>
   </view>
 
   <view class="section">
     <view class="section-title">联系方式</view>
     <view class="section-content">
-      <text >地址：福建省厦门市湖里区新科广场2号楼402-1室</text>
-      <text >电话：+86 13045914553</text>
-      <text >邮箱：724662212@qq.com</text>
+      <text>地址：福建省厦门市相关区域</text>
+      <text>电话：+86 0592-00000000</text>
+      <text>邮箱：contact@saqiwater.com</text>
     </view>
   </view>
 
@@ -51,14 +51,14 @@
   <view class="section">
     <view class="section-title">公司文化</view>
     <view class="section-content">
-      我们秉承“专业、创新、服务”的价值观，致力于为客户提供最优质的服务。
+      我们坚持以客户需求为导向，以安全、可靠、持续创新为核心，致力于为社会和用户创造更优质的水务服务体验。
     </view>
   </view>
 
   <view class="section">
     <view class="section-title">荣誉资质</view>
     <view class="section-content">
-      公司获得多项行业荣誉和资质认证，包括健康管理行业优秀企业、急救培训示范单位等。
+      公司持续推动技术创新与管理优化，先后获得行业相关认可与资质支持，积极服务于水务行业高质量发展。
     </view>
   </view>
 

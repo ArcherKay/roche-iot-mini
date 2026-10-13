@@ -1,7 +1,13 @@
 <view class="container">
   <view class="profile-card">
     <view class="avatar-section" >
-      <block wx:if="{{phoneNumber}}">
+      <block wx:if="{{account}}">
+        <image class="avatar" src="{{avatar}}" mode="aspectFill"></image>
+        <view class="user-info">
+          <text class="username">{{userName}}</text>
+        </view>
+      </block>
+      <block wx:elif="{{phoneNumber && isLoggedIn}}">
         <button class="chooseAvatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" >
           <image class="avatar" src="{{avatar}}" mode="aspectFill"></image>
         </button>
@@ -13,40 +19,52 @@
       <block wx:else>
         <image class="avatar" src="{{avatar}}" mode="aspectFill"></image>
         <button class="login-button" bindtap="onLogin">登录</button>
-      </block>
-
-      
+      </block>      
     </view>
-    <image class="edit-icon" src="/static/icon/item-setting.svg" bindtap="editProfile"></image>
-    <text class="points">当前积分: {{points}}</text>
   </view>
 
   <view class="menu-list">
+  <!--
     <view class="menu-item" bindtap="navigateToUserProfile">
       <image class="menu-icon" src="/static/icon/item-edit.svg"></image>
       <view class="menu-text">用户资料更改</view>
       <image class="arrow" src="/static/icon/item-arrow.svg"></image>
     </view>
-    <view class="menu-item" bindtap="navigateToPointsDetail">
-      <image class="menu-icon" src="/static/icon/item-record.svg"></image>
-      <view class="menu-text">积分明细</view>
-      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
-    </view>
-    <view class="menu-item" bindtap="navigateToFirstAid">
-      <image class="menu-icon" src="/static/icon/item-add.svg"></image>
-      <view class="menu-text">我要学急救</view>
-      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
-    </view>
+    -->
     <view class="menu-item" bindtap="navigateToPurchaseIntent">
       <image class="menu-icon" src="/static/icon/item-buy.svg"></image>
-      <view class="menu-text">我要买AED</view>
+      <view class="menu-text">我要买滤芯</view>
       <image class="arrow" src="/static/icon/item-arrow.svg"></image>
     </view>
-    <view class="menu-item" bindtap="navigateToResponser">
-      <image class="menu-icon" src="/static/icon/item-spon.svg"></image>
-      <view class="menu-text">成为志愿者</view>
+    <view class="menu-item" bindtap="navigateToPurifierStore">
+      <image class="menu-icon" src="/static/icon/item-buy.svg"></image>
+      <view class="menu-text">我要买净水器</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+    <button class="menu-item contact-item" open-type="contact">
+      <image class="menu-icon" src="/static/icon/item-about.svg"></image>
+      <view class="menu-text">联系客服</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </button>
+  </view>
+
+  <!-- 新增净水器维护菜单组 -->  
+  <view class="menu-list">
+    <view class="menu-item" bindtap="navigateToDeviceMaintenance">
+      <image class="menu-icon" src="/static/icon/item-edit.svg"></image>
+      <view class="menu-text">净水器修护</view>
       <image class="arrow" src="/static/icon/item-arrow.svg"></image>
     </view>
   </view>
+
+  <view wx:if="{{isLoggedIn}}" class="menu-list logout-list">
+    <view class="menu-item logout-item" bindtap="logout">
+      <image class="menu-icon" src="/static/icon/item-logout.svg"></image>
+      <view class="menu-text">退出登录</view>
+      <image class="arrow" src="/static/icon/item-arrow.svg"></image>
+    </view>
+  </view>
+  
+  
 
 </view>

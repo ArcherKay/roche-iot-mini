@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "更换滤芯",
+  "usingComponents": {}, 
+  "enablePullDownRefresh": true,  
+  "onReachBottomDistance": 50  
+}

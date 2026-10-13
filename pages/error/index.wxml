@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="error-header">错误信息</view>
+  <view class="error-message">
+    <text>{{errorMessage}}</text>
+  </view>
+  <button bindtap="backToHome" class="back-button">返回首页</button>
+</view>

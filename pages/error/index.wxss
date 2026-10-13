@@ -1,0 +1,38 @@
+/* 设置页面整体布局 */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8d7da;
+}
+
+/* 错误信息标题 */
+.error-header {
+  font-size: 24px;
+  color: #721c24;
+  margin-bottom: 20px;
+}
+
+/* 错误信息显示区域 */
+.error-message {
+  width: 90%;
+  word-wrap: break-word;
+  padding: 20px;
+  background-color: #f5c6cb;
+  border-radius: 10px;
+  color: #721c24;
+  font-size: 16px;
+}
+
+/* 返回首页按钮样式 */
+.back-button {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}

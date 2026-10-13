@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "设备报修",
+  "usingComponents": {}, 
+  "enablePullDownRefresh": true,  
+  "onReachBottomDistance": 50  
+}

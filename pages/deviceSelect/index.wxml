@@ -1,0 +1,23 @@
+<view class="page">
+  <view class="list-heading">
+    <view class="page-title">选择净水器</view>
+    <view class="device-count">共 {{devices.length}} 台</view>
+  </view>
+
+  <view wx:if="{{devices.length}}" class="device-list">
+    <view
+      wx:for="{{devices}}"
+      wx:key="deviceId"
+      class="device-card {{(item.deviceId || item.value) === currentDeviceId ? 'selected' : ''}}"
+      data-device-id="{{item.deviceId || item.value}}"
+      bindtap="selectDevice"
+    >
+      <view class="device-card-header">
+      </view>
+      <view class="device-id">设备编号：{{item.deviceId || item.value}}</view>
+      <view wx:if="{{item.manufacturer}}" class="device-meta">制造商：{{item.manufacturer}}</view>
+      <view wx:if="{{(item.deviceId || item.value) === currentDeviceId}}" class="selected-mark">当前设备</view>
+    </view>
+  </view>
+  <view wx:else class="empty-state">暂无可选设备</view>
+</view>

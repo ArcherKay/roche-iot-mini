@@ -1,0 +1,158 @@
+<view class="container">  
+  <!-- 标题 -->  
+  <view class="page-header">  
+    <text class="page-title">{{relocationId ? '修改移机记录' : '新增移机记录'}}</text>  
+  </view>  
+
+  <!-- 表单内容 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">设备编号</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入设备编号"  
+        value="{{equipmentId}}"  
+        bindinput="onEquipmentIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">申请人员</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入申请人员"  
+        value="{{applicantId}}"  
+        bindinput="onApplicantIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">原位置</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入原位置"  
+        value="{{originalLocation}}"  
+        bindinput="onOriginalLocationInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">目标位置</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入目标位置"  
+        value="{{targetLocation}}"  
+        bindinput="onTargetLocationInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">移机原因</text>  
+      <textarea  
+        class="form-textarea"  
+        placeholder="请输入移机原因"  
+        value="{{relocationReason}}"  
+        bindinput="onRelocationReasonInput"  
+        disabled="{{isViewMode}}"  
+      ></textarea>  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">移机状态</text>  
+      <radio-group bindchange="onRelocationStatusChange" disabled="{{isViewMode}}">  
+        <label class="radio-item">  
+          <radio value="处理中" checked="{{relocationStatus === '处理中'}}" /> 处理中  
+        </label>  
+        <label class="radio-item">  
+          <radio value="已完成" checked="{{relocationStatus === '已完成'}}" /> 已完成  
+        </label>  
+      </radio-group>  
+    </view>  
+
+    <view class="form-item" wx:if="{{relocationStatus === '已完成'}}">  
+      <text class="form-label">完成时间</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入完成时间"  
+        value="{{completeTime}}"  
+        bindinput="onCompleteTimeInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item" wx:if="{{relocationStatus === '已完成'}}">  
+      <text class="form-label">操作人员</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入操作人员"  
+        value="{{operatorId}}"  
+        bindinput="onOperatorIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+  </view>  
+
+  <!-- 照片区域 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">移机前照片</text>  
+      <view class="photo-container">  
+        <block wx:for="{{beforePhotos}}" wx:key="index">  
+          <view class="photo-item">  
+            <image class="photo" src="{{item}}" />  
+            <view  
+              class="photo-delete"  
+              bindtap="onDeleteBeforePhoto"  
+              data-index="{{index}}"  
+              wx:if="{{!isViewMode}}"  
+            >  
+              ×  
+            </view>  
+          </view>  
+        </block>  
+        <view  
+          class="photo-item add-photo"  
+          bindtap="onAddBeforePhoto"  
+          wx:if="{{beforePhotos.length < 6 && !isViewMode}}"  
+        >  
+          <text class="add-photo-icon">+</text>  
+        </view>  
+      </view>  
+    </view>  
+
+    <view class="form-item" wx:if="{{relocationStatus === '已完成'}}">  
+      <text class="form-label">移机后照片</text>  
+      <view class="photo-container">  
+        <block wx:for="{{afterPhotos}}" wx:key="index">  
+          <view class="photo-item">  
+            <image class="photo" src="{{item}}" />  
+            <view  
+              class="photo-delete"  
+              bindtap="onDeleteAfterPhoto"  
+              data-index="{{index}}"  
+              wx:if="{{!isViewMode}}"  
+            >  
+              ×  
+            </view>  
+          </view>  
+        </block>  
+        <view  
+          class="photo-item add-photo"  
+          bindtap="onAddAfterPhoto"  
+          wx:if="{{afterPhotos.length < 6 && !isViewMode}}"  
+        >  
+          <text class="add-photo-icon">+</text>  
+        </view>  
+      </view>  
+    </view>  
+  </view>  
+
+  <!-- 提交按钮 -->  
+  <view class="submit-container" wx:if="{{!isViewMode}}">  
+    <button class="submit-button" bindtap="onSubmit">{{relocationId ? '提交修改' : '新增移机'}}</button>  
+  </view>  
+</view>  

@@ -1,0 +1,122 @@
+<view class="container">  
+  <!-- 标题 -->  
+  <view class="page-header">  
+    <text class="page-title">{{isViewMode ? '查看报修记录' : (isEditMode ? '修改报修记录' : '新增报修记录')}}</text>  
+  </view>  
+
+  <!-- 表单内容 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">设备编号</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入设备编号"  
+        value="{{equipmentId}}"  
+        bindinput="onEquipmentIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">报修人员</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入报修人员"  
+        value="{{reporterId}}"  
+        bindinput="onReporterIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">故障描述</text>  
+      <textarea  
+        class="form-textarea"  
+        placeholder="请输入故障描述"  
+        value="{{faultDescription}}"  
+        bindinput="onFaultDescriptionInput"  
+        disabled="{{isViewMode}}"  
+      ></textarea>  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">维修状态</text>  
+      <radio-group bindchange="onRepairStatusChange" disabled="{{isViewMode}}">  
+        <label class="radio-item">  
+          <radio value="处理中" checked="{{repairStatus === '处理中'}}" /> 处理中  
+        </label>  
+        <label class="radio-item">  
+          <radio value="已完成" checked="{{repairStatus === '已完成'}}" /> 已完成  
+        </label>  
+      </radio-group>  
+    </view>  
+
+    <view class="form-item" wx:if="{{repairStatus === '已完成'}}">  
+      <text class="form-label">操作人员</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入操作人员"  
+        value="{{operatorId}}"  
+        bindinput="onOperatorIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item" wx:if="{{repairStatus === '已完成'}}">  
+      <text class="form-label">维修结果</text>  
+      <textarea  
+        class="form-textarea"  
+        placeholder="请输入维修结果"  
+        value="{{repairResult}}"  
+        bindinput="onRepairResultInput"  
+        disabled="{{isViewMode}}"  
+      ></textarea>  
+    </view>  
+
+    <view class="form-item" wx:if="{{repairStatus === '已完成'}}">  
+      <text class="form-label">完成时间</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入完成时间"  
+        value="{{completeTime}}"  
+        bindinput="onCompleteTimeInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+  </view>  
+
+  <!-- 照片区域 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">现场照片</text>  
+      <view class="photo-container">  
+        <block wx:for="{{photos}}" wx:key="index">  
+          <view class="photo-item">  
+            <image class="photo" src="{{item}}" />  
+            <view  
+              class="photo-delete"  
+              bindtap="onDeletePhoto"  
+              data-index="{{index}}"  
+              wx:if="{{!isViewMode}}"  
+            >  
+              ×  
+            </view>  
+          </view>  
+        </block>  
+        <view  
+          class="photo-item add-photo"  
+          bindtap="onAddPhoto"  
+          wx:if="{{photos.length < 6 && !isViewMode}}"  
+        >  
+          <text class="add-photo-icon">+</text>  
+        </view>  
+      </view>  
+    </view>  
+  </view>  
+
+  <!-- 提交与删除按钮 -->  
+  <view class="submit-container" wx:if="{{!isViewMode}}">  
+    <button class="submit-button" bindtap="onSubmit">{{isEditMode ? '提交修改' : '新增报修'}}</button>  
+    <!-- <button class="delete-button" bindtap="onDelete" wx:if="{{isEditMode}}">删除记录</button>   -->
+  </view>  
+</view>  

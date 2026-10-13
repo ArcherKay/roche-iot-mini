@@ -1,9 +1,14 @@
 import eventBus from '../../utils/eventBus';
 const app = getApp()
 const utils = app.utils
+const API_BASE_URL = 'https://www.uvipwap.com/MesIOTApi';
 
 Page({
   data: {
+    account: '',
+    password: '',
+    showPassword: false,
+    isLoading: false,
     mobileNum: null,
     disabled: false,
     countDown: "",
@@ -72,10 +77,97 @@ Page({
     console.log('onUnload');
   },
   onLoad: function () {
-    var that = this
-    // 提前获取code
-    this.updateJscode();
-    this.startJscodeRefreshTimer();
+    if (app.globalData.mesIotAccessToken) {
+      wx.switchTab({ url: '/pages/purifier/index' });
+    }
+  },
+  onAccountInput: function (event) {
+    this.setData({ account: event.detail.value });
+  },
+  onPasswordInput: function (event) {
+    this.setData({ password: event.detail.value });
+  },
+  togglePasswordVisibility: function () {
+    this.setData({ showPassword: !this.data.showPassword });
+  },
+  submitLogin: function () {
+    const account = this.data.account.trim();
+    const password = this.data.password;
+    if (!account || !password) {
+      wx.showToast({ title: '请输入账号和密码', icon: 'none' });
+      return;
+    }
+    if (!this.data.agreelog) {
+      this.tips();
+      return;
+    }
+
+    const that = this;
+    let loadingUserInfo = false;
+    this.setData({ isLoading: true });
+    wx.request({
+      url: API_BASE_URL + '/api/identity/token?culture=zh-CN',
+      method: 'POST',
+      header: { 'Content-Type': 'application/json' },
+      data: { account: account, password: password, verifyCode: '' },
+      success: function (response) {
+        const payload = response.data || {};
+        const accessToken = payload.data && payload.data.accessToken;
+        if (response.statusCode !== 200 || payload.code !== 200 || !accessToken) {
+          wx.showToast({ title: payload.message || '账号或密码错误', icon: 'none' });
+          return;
+        }
+
+  loadingUserInfo = true;
+        wx.request({
+          url: API_BASE_URL + '/api/identity/getuserinfo?culture=zh-CN',
+          method: 'GET',
+          header: { Authorization: 'Bearer ' + accessToken },
+          success: function (userResponse) {
+            const userPayload = userResponse.data || {};
+            const userInfo = userPayload.data;
+            if (userResponse.statusCode !== 200 || userPayload.code !== 200 || !userInfo) {
+              wx.showToast({ title: userPayload.message || '获取用户信息失败', icon: 'none' });
+              return;
+            }
+
+            try {
+              wx.setStorageSync('mesIotUserInfo', userInfo);
+              wx.setStorageSync('mesIotAccessToken', accessToken);
+            } catch (error) {
+              wx.showToast({ title: '登录状态保存失败', icon: 'none' });
+              return;
+            }
+            app.globalData.mesIotAccessToken = accessToken;
+            app.globalData.mesIotUserInfo = userInfo;
+            const pendingSharedDeviceId = app.globalData.pendingSharedDeviceId || wx.getStorageSync('pendingSharedDeviceId');
+            if (pendingSharedDeviceId) {
+              wx.redirectTo({
+                url: '/pages/sharedDeviceAccept/index?deviceId=' + encodeURIComponent(pendingSharedDeviceId),
+                success: function () {
+                  app.globalData.pendingSharedDeviceId = '';
+                  wx.removeStorageSync('pendingSharedDeviceId');
+                }
+              });
+              return;
+            }
+            wx.switchTab({ url: '/pages/purifier/index' });
+          },
+          fail: function () {
+            wx.showToast({ title: '获取用户信息失败，请检查网络', icon: 'none' });
+          },
+          complete: function () {
+            that.setData({ isLoading: false });
+          }
+        });
+      },
+      fail: function () {
+        wx.showToast({ title: '登录请求失败，请检查网络', icon: 'none' });
+      },
+      complete: function () {
+        if (!loadingUserInfo) that.setData({ isLoading: false });
+      }
+    });
   },
   // 其它方式登入
   navigateToLogin:function () {
@@ -142,11 +234,10 @@ Page({
         code : jscode
       },
       success:function(res){
-        console.log('getopenID:' + JSON.stringify(res))
         if (res.statusCode == 200) {
             const open_id = res.data.openid
             const session_key = res.data.session_key
-            console.log('open_id:' + open_id);
+            console.log('open_id======:' + open_id);
             console.log('session_key:' + session_key);
             // 试着客户端解密
             // 解密手机号
@@ -186,7 +277,10 @@ Page({
         // nickName:'微信用户'
       },
       success: function (res) {
-        console.log('xcx_login:' + JSON.stringify(res))
+        // console.log('xcx_login======:' + JSON.stringify(res))
+        // wx.navigateTo({
+        //     url: '/pages/error/index?errorMessage=' + encodeURIComponent('phonenumber:' + phonenumber + 'open_id:' + open_id + 'res:' + JSON.stringify(res))
+        //   });
         // 测试
         that.getUserInfo(phonenumber, open_id)  
 
@@ -199,6 +293,8 @@ Page({
   },
   getUserInfo: function (phonenumber, open_id) {
     const that = this
+    // console.log('getUserInfo:' + app.globalData.userInfo_url + '?openId=' + open_id)
+    // open_id = "okZP25Q8mrFKdhInrOjCUp2Lm0jo"
     wx.request({ 
       url:
         app.globalData.userInfo_url + '?openId=' + open_id,
@@ -208,8 +304,11 @@ Page({
       },
       method: "GET",
       success: function (res) {
+        // console.log('getUserInfo res:' + JSON.stringify(res))
+        // alert(open_id + 'JSON.stringify(res)')
+        // res.statusCode = 201
         if (res.statusCode == 200) {
-          console.log('getUserInfo:' + JSON.stringify(res))
+          // console.log('getUserInfo:' + JSON.stringify(res))
            const phone = phonenumber
            // 联系方式
            let contact = ''
@@ -288,6 +387,10 @@ Page({
         }
         else {
           utils.showTip("获取用户信息失败,请重新登入！")
+          // console.log('error:' + JSON.stringify(res))
+          // wx.navigateTo({
+          //   url: '/pages/error/index?errorMessage=' + encodeURIComponent('openID:' + open_id + 'res:' + JSON.stringify(res))
+          // });
         }
         // console.log('getUserInfo:' + JSON.stringify(res))
         

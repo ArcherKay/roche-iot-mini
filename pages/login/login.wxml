@@ -1,9 +1,17 @@
 <view class='container'>
-  <view class='app-logo'>
-    <image src='../../static/img/uwpLogo.png'></image>
+    <view class="welcome-title">欢迎登陆</view>
+  <view class="login-fields">
+    <input class="login-input" value="{{account}}" placeholder="请输入账号" bindinput="onAccountInput" confirm-type="next" />
+    <view class="password-field">
+      <input class="login-input password-input" value="{{password}}" password="{{!showPassword}}" placeholder="请输入密码" bindinput="onPasswordInput" confirm-type="go" bindconfirm="submitLogin" />
+      <view class="password-toggle" bindtap="togglePasswordVisibility" aria-label="{{showPassword ? '隐藏密码' : '显示密码'}}">
+        <view class="password-eye {{showPassword ? 'is-visible' : ''}}">
+          <view class="password-eye-pupil"></view>
+        </view>
+      </view>
+    </view>
   </view>
-  <button wx:if="{{!agreelog}}" type='button' class='register-btn' bindtap="tips">手机号快捷登录</button>
-  <button wx:if="{{agreelog}}" type='button' class='register-btn' open-type="getPhoneNumber" bindgetphonenumber="qetMobileNumber">手机号快捷登录</button>
+  <button type="button" class="register-btn" loading="{{isLoading}}" disabled="{{isLoading}}" bindtap="submitLogin">账号密码登录</button>
  
   <!-- <view class='other-container'>
     <view class='line'></view>
@@ -14,17 +22,14 @@
     <image src = '../../images/icon/verifylogin.png' />
   </view> -->
   <view  class="agree-user-policy">
-    <view class='agree-user'>
-      <view class='btn-agree-link'>
-        <radio value="" checked="{{agreelog}}" bindtap='chagree'/>
-      </view>
-      <view class='user-agree-title'>我同意救在心间</view>
-      <view class="user-agreement-link">
-        <text bindtap='navigateUserprivacy' open-type="redirect" class='user-agreement'>《用户协议》</text>       
-      </view>    
-      <view class='user-policy-link'>
-        <text bindtap='navigatePrivacy' open-type="redirect" class='user-agreement' >《隐私政策》</text>
-      </view>
+    <view class="agree-user">
+      <radio class="policy-radio" value="" checked="{{agreelog}}" bindtap='chagree' color="#2d79b0" />
+      <text class="user-agree-title">我已阅读并同意</text>
+    </view>
+    <view class="agreement-links">
+      <text bindtap='navigateUserprivacy' open-type="redirect" class="user-agreement">《用户协议》</text>
+      <text class="agreement-joiner">与</text>
+      <text bindtap='navigatePrivacy' open-type="redirect" class="user-agreement">《隐私政策》</text>
     </view>
   </view>
 </view>

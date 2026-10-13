@@ -1,0 +1,112 @@
+<view class="container">  
+  <!-- Tabs -->  
+  <view class="tabs">  
+    <view  
+      class="tab-item"  
+      data-index="0"  
+      bindtap="onTabClick"  
+    >  
+      <text class="tab-text {{activeTab === 0 ? 'active' : ''}}">净水器激活</text>  
+      <view class="tab-line {{activeTab === 0 ? 'visible' : ''}}"></view>  
+    </view>  
+    <view  
+      class="tab-item"  
+      data-index="1"  
+      bindtap="onTabClick"  
+    >  
+      <text class="tab-text {{activeTab === 1 ? 'active' : ''}}">滤芯更换</text>  
+      <view class="tab-line {{activeTab === 1 ? 'visible' : ''}}"></view>  
+    </view>  
+  </view>  
+
+  <!-- Tab Content -->  
+  <view class="tab-content" wx:if="{{activeTab === 0}}">  
+    <view class="inspection-container">  
+      <view class="device-list-summary">
+        <text>设备总数</text>
+        <text class="device-count">{{deviceTotal}}</text>
+      </view>
+      <view class="empty-state" wx:if="{{isDeviceListLoading}}">正在加载设备...</view>
+      <view class="empty-state error" wx:elif="{{deviceListError}}">{{deviceListError}}</view>
+      <view class="empty-state" wx:elif="{{deviceList.length === 0}}">暂无设备数据</view>
+      <block wx:if="{{!isDeviceListLoading && !deviceListError && deviceList.length > 0}}" wx:for="{{deviceList}}" wx:key="id">
+        <view class="inspection-item">
+          <view class="item-header">
+            <text class="device-id">设备编号：{{item.deviceId || '--'}}</text>
+            <text class="device-status {{item.online ? 'online' : 'offline'}}">{{item.online ? '在线' : '离线'}}</text>
+          </view>
+          <view class="divider"></view>
+          <view class="item-content">
+            <view class="content-row field-model">
+              <text class="label">设备型号：</text>
+              <text class="value">{{item.deviceModel || '--'}}</text>
+            </view>
+            <view class="content-row field-manufacturer">
+              <text class="label">制造商：</text>
+              <text class="value">{{item.manufacturer || '--'}}</text>
+            </view>
+            <view class="content-row field-serial">
+              <text class="label">序列号：</text>
+              <text class="value">{{item.deviceSn || '--'}}</text>
+            </view>
+            <view class="content-row field-last-login">
+              <text class="label">最近登录：</text>
+              <text class="value">{{item.lastLoginAt || '--'}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>  
+  </view>  
+  <view class="tab-content" wx:if="{{activeTab === 1}}">  
+    <!-- 添加更换滤芯按钮 -->  
+  <view class="create-button-container">  
+    <button class="create-button" bindtap="onAddReplacement">添加更换滤芯</button>  
+  </view>  
+
+  <!-- 更换滤芯记录列表 -->  
+  <block wx:for="{{replacementList}}" wx:key="id">  
+    <view class="replacement-item">  
+      <!-- 顶部信息 -->  
+      <view class="item-header">  
+        <text class="equipment-id">设备编号：{{item.equipment_id}}</text>  
+        <text class="apply-time">{{item.apply_time}}</text>  
+      </view>  
+      <!-- 分隔线 -->  
+      <view class="divider"></view>  
+      <!-- 内容信息 -->  
+      <view class="item-content">  
+        <view class="content-row">  
+          <text class="label">申请人员：</text>  
+          <text class="value">{{item.applicant_id}}</text>  
+        </view>  
+        <view class="content-row">  
+          <text class="label">滤芯类型：</text>  
+          <text class="value">{{item.consumable_type}}</text>  
+        </view>  
+        <view class="content-row">  
+          <text class="label">滤芯数量：</text>  
+          <text class="value">{{item.quantity}}</text>  
+        </view>  
+        <view class="content-row" wx:if="{{item.process_status === '已完成'}}">  
+          <text class="label">完成时间：</text>  
+          <text class="value">{{item.complete_time}}</text>  
+        </view>  
+        <view class="content-row"  wx:if="{{item.process_status === '已完成'}}">  
+          <text class="label">操作人员：</text>  
+          <text class="value">{{item.operator_id}}</text>  
+        </view>  
+      </view>  
+      <!-- 修改与删除按钮 -->  
+      <view class="item-actions">  
+        <div>
+          <button class="action-button edit-button" catchtap="onEditReplacement" data-id="{{item.id}}">修改</button>  
+        </div>
+        <div>
+          <button class="action-button delete-button" catchtap="onDeleteReplacement" data-id="{{item.id}}">删除</button>  
+        </div>
+      </view>  
+    </view>  
+  </block>  
+  </view>  
+</view>  

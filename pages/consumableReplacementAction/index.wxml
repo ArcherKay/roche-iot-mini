@@ -1,0 +1,92 @@
+<view class="container">  
+  <!-- 标题 -->  
+  <view class="page-header">  
+    <text class="page-title">{{replacementId ? '修改滤芯更换记录' : '新增滤芯更换记录'}}</text>  
+  </view>  
+
+  <!-- 表单内容 -->  
+  <view class="section">  
+    <view class="form-item">  
+      <text class="form-label">设备编号</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入设备编号"  
+        value="{{equipmentId}}"  
+        bindinput="onEquipmentIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">申请人员</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入申请人员"  
+        value="{{applicantId}}"  
+        bindinput="onApplicantIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">滤芯类型</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入滤芯类型"  
+        value="{{consumableType}}"  
+        bindinput="onConsumableTypeInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">滤芯数量</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入滤芯数量"  
+        type="number"  
+        value="{{quantity}}"  
+        bindinput="onQuantityInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item">  
+      <text class="form-label">更换原因</text>  
+      <textarea  
+        class="form-textarea"  
+        placeholder="请输入更换原因"  
+        value="{{replaceReason}}"  
+        bindinput="onReplaceReasonInput"  
+        disabled="{{isViewMode}}"  
+      ></textarea>  
+    </view>  
+    <view class="form-item" wx:if="{{processStatus === '已完成'}}">  
+      <text class="form-label">完成时间</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入完成时间"  
+        value="{{completeTime}}"  
+        bindinput="onCompleteTimeInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+
+    <view class="form-item" wx:if="{{processStatus === '已完成'}}">  
+      <text class="form-label">操作人员</text>  
+      <input  
+        class="form-input"  
+        placeholder="请输入操作人员"  
+        value="{{operatorId}}"  
+        bindinput="onOperatorIdInput"  
+        disabled="{{isViewMode}}"  
+      />  
+    </view>  
+  </view>  
+
+
+  <!-- 提交按钮 -->  
+  <view class="submit-container" wx:if="{{!isViewMode}}">  
+    <button class="submit-button" bindtap="onSubmit">{{replacementId ? '提交修改' : '新增更换滤芯'}}</button>  
+  </view>  
+</view>  

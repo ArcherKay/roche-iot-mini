@@ -1,0 +1,28 @@
+<view class="page">
+  <view class="device-heading">
+    <view class="device-name">设备编号{{deviceId}}</view>
+  </view>
+
+  <view wx:if="{{filters.length}}" class="chart-card">
+    <view class="chart-heading">滤芯使用率</view>
+    <view class="filter-list">
+      <view wx:for="{{filters}}" wx:key="name" class="filter-row">
+        <view class="filter-row-heading">
+          <view class="filter-name">{{item.name}}</view>
+          <view class="used-value">{{item.usedPercent}}<text>%</text></view>
+        </view>
+        <view class="chart-track">
+          <view class="chart-fill {{item.tone}}" style="width: {{item.usedPercent}}%;"></view>
+        </view>
+        <view class="filter-row-footer">
+          <view class="remaining-value">剩余 {{item.remain}} 天 / {{item.total}} 天</view>
+          <button class="reset-button" data-index="{{index}}" disabled="{{isResetting}}" bindtap="onResetFilter">
+            {{isResetting && resettingFilterIndex === index ? '复位中...' : '复位'}}
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">暂无滤芯使用数据</view>
+</view>

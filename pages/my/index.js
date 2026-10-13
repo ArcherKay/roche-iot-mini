@@ -5,19 +5,31 @@ Page({
   data: {
     userName: '用户名',
     phoneNumber: '',
+    account: '',
+    isLoggedIn: false,
     points: 0,
     avatar: '/static/img/avatar.jpg'
   },
   refreshMyPage: function() {
-    this.setData({
-      userName: app.globalData.userInfo.name || app.globalData.userInfo.nickName,
-      phoneNumber: app.globalData.userInfo.phone,
-      avatar: app.globalData.userInfo.avatarUrl,
-      points: app.globalData.userInfo.score
-    })
+    this.syncUserState()
     // 获取image server token
     this.getImageServerToken()
     this.getUserToken()
+  },
+  syncUserState: function() {
+    const mesIotUserInfo = app.globalData.mesIotUserInfo || wx.getStorageSync('mesIotUserInfo') || null
+    const legacyUserInfo = app.globalData.userInfo || {}
+    const isLoggedIn = !!app.globalData.mesIotAccessToken
+    const account = isLoggedIn && mesIotUserInfo && mesIotUserInfo.account ? mesIotUserInfo.account : ''
+    const phoneNumber = account || legacyUserInfo.phone || ''
+    this.setData({
+      isLoggedIn: isLoggedIn,
+      account: account,
+      userName: account || legacyUserInfo.name || legacyUserInfo.nickName || '用户名',
+      phoneNumber: phoneNumber,
+      avatar: legacyUserInfo.avatarUrl || this.data.avatar,
+      points: legacyUserInfo.score || 0
+    })
   },
   onUnload: function() {
     console.log('onUnload')
@@ -27,18 +39,14 @@ Page({
   },
   onLoad(options) {
     eventBus.on('refreshMyPage', this.refreshMyPage);
-    if (app.globalData.phone != null) {
-      console.log('avatar:' + app.globalData.userInfo.avatarUrl)
-      this.setData({
-        userName: app.globalData.userInfo.name || app.globalData.userInfo.nickName,
-        phoneNumber: app.globalData.userInfo.phone,
-        avatar: app.globalData.userInfo.avatarUrl,
-        points: app.globalData.userInfo.score
-      })
-    }
-    // 获取image server token
+    this.syncUserState()
+    // 获取image server token fixme cp
     this.getImageServerToken()
     this.getUserToken()
+   },
+
+   onShow: function() {
+    this.syncUserState()
    },
 
    onChooseAvatar: function(e) {
@@ -205,114 +213,75 @@ Page({
     });
   },
 
-  navigateToPointsDetail: function() {
-    // 判断是否已登录
-    if (utils.isLogin() == false) {
-      utils.navigateToLogin()  
-      return
-    }
-    wx.navigateTo({
-      url: '/pages/pointsDetail/index'
-    });
-  },
-
-  navigateToFirstAid: function() {
-    wx.navigateTo({
-      url: '/pages/learnFirstAid/index'
-    });
-  },
-
+ 
   navigateToPurchaseIntent: function() {
-    wx.navigateTo({
-      url: '/pages/purchaseIntentionRegistration/index'
+    wx.navigateToMiniProgram({
+      appId: 'wx91d27dbf599dff74',
+      path: '/pages/item/detail/detail?sku=10085917758969',
+      envVersion: 'release',
+      fail: function(error) {
+        if (error && error.errMsg && error.errMsg.indexOf('cancel') !== -1) return;
+        wx.showModal({
+          title: '暂时无法打开京东商品',
+          content: '请稍后重试，或在京东搜索商品编号 10085917758969。',
+          showCancel: false
+        });
+      }
     });
   },
-  navigateToResponser: function() {
-    // 判断是否已登录
-    if (utils.isLogin() == false) {
-      utils.navigateToLogin()  
-      return
-    }
-    // 查询responser信息
-    this.emergencyResponderInfo()
+  navigateToPurifierStore: function() {
+    this.navigateToJdStore();
+  },
+  navigateToJdStore: function() {
+    wx.navigateToMiniProgram({
+      appId: 'wx91d27dbf599dff74',
+      path: '/pages/shop/index/index?shopId=10050767',
+      envVersion: 'release',
+      fail: function(error) {
+        if (error && error.errMsg && error.errMsg.indexOf('cancel') !== -1) return;
+        wx.showModal({
+          title: '暂时无法打开京东',
+          content: '请稍后重试，或在京东搜索净水器及滤芯。',
+          showCancel: false
+        });
+      }
+    });
+  },
+  navigateToDeviceMaintenance: function() {
+    // fixme cp
+    // if (utils.isLogin() == false) {
+    //   utils.navigateToLogin()  
+    //   return
+    // }
+    // 转到净水器维护界面
+    wx.switchTab({
+      url: '/pages/deviceMaintenance/index'
+    });
+
    
   },
-  emergencyResponderInfo: function() {
-    const that = this
-    const t = Date.parse(new Date()) / 1000
-    wx.request({ 
-      url:
-        app.globalData.emergencyResponderInfo_url + '?' + 'id=' + app.globalData.userInfo.open_id,
-      header: {
-        "Content-Type": "application/json",
-        'custom-header': 'hello' 
-      },
-      method: "GET",
-      success: function (res) {
-        console.log('getFirstAidData:' + JSON.stringify(res))
-        // fixme cp 测试数据
-        // res.data.result = null; // 还未注册responser
-        // 待审核状态
-      //   res = {
-      //     data: {
-      //         result: {
-      //             userId: 175,
-      //             openId: "oT2r-56yWdjvXdszopEmkaptFXKg",
-      //             ahaType: "AHA急救员", 
-      //             isMedicalStaff: "否", 
-      //             name: "张三", 
-      //             certificateCategory: "AHA急救员证书", 
-      //             contactNumber: "189****011", 
-      //             address: "某市某区某街道", 
-      //             currentUnit: null,
-      //             latitude: 24.4933109, 
-      //             longitude: 118.1953105, 
-      //             online: false,
-      //             lastModificationTime: "2022-04-02T09:31:11.0114613",
-      //             lastModifierUserId: 1,
-      //             creationTime: "2021-11-16T17:12:00",
-      //             creatorUserId: 1,
-      //             certificateAttachment: "https://yourapi.com/uploads/certificate/123.jpg",
-      //             idCardAttachment: "https://yourapi.com/uploads/idcard/456.jpg",
-      //             auditStatus: "待审核",
-      //             auditFailureReason: null
-      //         },
-      //         success: true,
-      //     },
-      //     statusCode: 200
-      // };
+  logout: function() {
+    wx.showModal({
+      title: '退出登录',
+      content: '确定退出当前账号并重新登录吗？',
+      success: (result) => {
+        if (!result.confirm) return;
 
-        if (res.statusCode == 200) {
-          if (res.data !== undefined && res.data != null && res.data != '')
-          {
-             if (res.data.result == null) {
-                // 还未注册
-                wx.navigateTo({
-                  url: '/pages/toBeResponser/index'
-                });
-             }
-             else {
-              // 处理附件URL
-              res.data.result.certificateAttachment = res.data.result.certificateAttachment.split(';');
-              res.data.result.idCardAttachment = res.data.result.idCardAttachment.split(';');
-              const pdata = '?data=' + encodeURIComponent(JSON.stringify(res.data.result))
-              wx.navigateTo({
-                url: '/pages/emergencyResponderInfo/index' + pdata
-              });
+        app.globalData.mesIotAccessToken = '';
+        app.globalData.mesIotUserInfo = null;
+        app.globalData.userInfo = null;
+        app.globalData.phone = null;
+        app.globalData.pendingSharedDeviceId = '';
 
-             }
-          } 
-        } else {
-          console.log("do not exist aid")
-        }
+        wx.removeStorageSync('mesIotAccessToken');
+        wx.removeStorageSync('mesIotUserInfo');
+        wx.removeStorageSync('jzxj_phone');
+        wx.removeStorageSync('jzxj_userInfo');
+        wx.removeStorageSync('pendingSharedDeviceId');
 
-      },
-      fail: function () {
-        console.log("获取firstaid数据失败！")
-      },
-    })
-    
-  
+        wx.reLaunch({ url: '/pages/login/login' });
+      }
+    });
   },
   onLogin: function() { 
     utils.navigateToLogin()  

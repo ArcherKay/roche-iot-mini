@@ -10,10 +10,10 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
-  background-color: #e74c3c;
+  background-color: #6eabe4;
   color: white;
   position: relative;
-  height: 150px; /* 调整上半部分的高度 */
+  height: 120px; /* 调整上半部分的高度 */
 }
 
 .avatar-section {
@@ -73,9 +73,20 @@
   flex-direction: column;
   background-color: white;
   border-radius: 10px;
-  margin: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.logout-list {
+  margin-top: 24px;
+}
+
+.logout-item .menu-text {
+  color: #b64d4d;
+}
+
 
 .menu-item {
   display: flex;
@@ -83,6 +94,21 @@
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #e0e0e0;
+}
+
+.contact-item {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  line-height: normal;
+  text-align: left;
+}
+
+.contact-item::after {
+  border: 0;
 }
 
 .menu-icon {

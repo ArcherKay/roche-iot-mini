@@ -1,39 +1,35 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/responder/index",
-    "pages/knowledge/index",
-    "pages/aidEventList/index",
-    "pages/aidEventDetail/index",
-    "pages/questionnaire/index",
-    "pages/question/index",
-    "pages/questionnaireAnswer/index",
+    "pages/purifier/index",
+    "pages/deviceSelect/index",
+    "pages/filterLife/index",
+    "pages/sharedDeviceList/index",
+    "pages/sharedDeviceAccept/index",
+    "pages/index/index", 
     "pages/my/index",
     "pages/about/index",
-    "pages/learnFirstAid/index",
     "pages/purchaseIntentionRegistration/index",
-    "pages/toBeResponser/index",
-    "pages/emergencyResponderInfo/index",
+    "pages/deviceMaintenance/index",
+    "pages/deviceInspectionAction/index",
+    "pages/deviceRepairAction/index",
+    "pages/deviceRelocationAction/index",
+    "pages/consumableReplacementAction/index", 
     "pages/setting/index",
     "pages/userProfile/index",
-    "pages/pointsDetail/index",
     "pages/logs/logs",
+    "pages/error/index",
     "pages/login/login",
-    "pages/videoDetail/index",
     "pages/userPrivacyAgreement/index",
     "pages/userServiceAgreement/index",
     "pages/test/index"
+  ],
+  "navigateToMiniProgramAppIdList": [
+    "wx91d27dbf599dff74"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Weixin",
     "navigationBarBackgroundColor": "#ffffff"
-  },
-  "plugins": {
-    "player": {
-       "version": "2.5.6",
-       "provider": "wxa75efa648b60994b"
-    }
   },
   "permission": {
     "scope.userLocation": {
@@ -57,24 +53,18 @@
     "borderStyle": "white",
     "backgroundColor": "#ffffff",
     "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "急救设备",
-        "iconPath": "static/icon/icon-aed-map.png",
-        "selectedIconPath": "static/icon/icon-aed-map-active.png"
+        {
+        "pagePath": "pages/purifier/index",
+        "text": "净水器详情",
+        "iconPath": "static/icon/icon-purifier.png",
+        "selectedIconPath": "static/icon/icon-purifier-active.png"
       },
-      {
-        "pagePath": "pages/responder/index",
-        "text": "急救人员",
-        "iconPath": "static/icon/icon-responder.png",
-        "selectedIconPath": "static/icon/icon-responder-active.png"
-      },
-      {
-        "pagePath": "pages/knowledge/index",
-        "text": "急救科普",
-        "iconPath": "static/icon/icon-knowledge-center.png",
-        "selectedIconPath": "static/icon/icon-knowledge-center-active.png"
-      },
+        {
+          "pagePath": "pages/deviceMaintenance/index",
+          "text": "净水器维护",
+          "iconPath": "static/icon/icon-maintenance.png",
+          "selectedIconPath": "static/icon/icon-maintenance-active.png"
+        },
       {
         "pagePath": "pages/my/index",
         "text": "我的",

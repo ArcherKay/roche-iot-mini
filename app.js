@@ -1,12 +1,22 @@
 // app.js
 import utils from "./utils/util"
 App({
-  onLaunch() {
+  onLaunch(options) {
     const that = this
     that.utils = new utils(that)
     that.getLocalUser()
-    
-    
+    const launchPath = options && options.path ? options.path.replace(/^\//, '') : ''
+    const launchQuery = options && options.query ? options.query : {}
+    if (launchPath === 'pages/sharedDeviceAccept/index' && launchQuery.deviceId) {
+      that.globalData.pendingSharedDeviceId = launchQuery.deviceId
+      wx.setStorageSync('pendingSharedDeviceId', launchQuery.deviceId)
+    }
+    const accessToken = wx.getStorageSync('mesIotAccessToken')
+    that.globalData.mesIotAccessToken = accessToken || ''
+    that.globalData.mesIotUserInfo = wx.getStorageSync('mesIotUserInfo') || null
+    if (!accessToken) {
+      wx.reLaunch({ url: '/pages/login/login' })
+    }
   },
   // userInfo
   // {
@@ -435,27 +445,11 @@ App({
   },
 
   globalData: {
+    mesIotAccessToken: '',
+    mesIotUserInfo: null,
+    pendingSharedDeviceId: '',
     userInfo: null,
-    phone: null,
-    url:'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/MiniApp/', //GetOpenId4MiniApp
-    login_url:'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthScanLogin/CreateMiniProgramLogin',
-    userInfo_url:'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthScanLogin/GetLoginInfoByOpenId',
-    device_url: 'https://www.uvipwap.com/UWPV2API/api/services/app/Equipment/GetEquipmentList?MaxResultCount=2000&SetUpCity=',
-    firstaid_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthFirstAider/GetFirstAiderList',
-    videoList_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthVideo/VideoHomePageNoLogin',
-    videoList_url_login: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthVideo/VideoLearnHomePage',
-    learnVideoPage_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthVideo/LearnVideoPage',
-    saveVideoProgress_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthVideo/SaveLearnVideoProgress',
-    GetFirstAidEventList_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthArticle/GetArticleList',
-    getQuestionList_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthQuestion/GetQuestionList',
-    saveExaminResult_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthExamin/SaveExaminResult',
-    examinResultPage_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthExamin/ExaminResultPage',
-    uploadFile_url: 'https://www.uvipwap.com/UWPV2API/api/File/UploadFiles',
-    uploadUserProfile_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/User/updateUserprofileAsync',
-    CreateTrainingSignUp_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthTrainingSignUp/CreateTrainingSignUpn',
-    CreateBuySignUp_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthBuySignUp/CreateBuySignUp',
-    imageServerToken_url: 'https://www.uvipwap.com/UWPV2API/api/TokenAuth/Authenticate',
-    map_key: 'CNHBZ-WPWK6-UBESW-E5Q5Z-UZG2H-P5FA7',
+    phone: null,   
     selectVideoItem: null,
     imgServerUser: 'admin',
     imgServerPwd: 'Uvipwap609.',
@@ -463,11 +457,7 @@ App({
     authPwd: '123qwe',
     imageServerToken: null,
     authUserToken:null,
-    imageServerUrl:'https://www.uvipwap.com/UWPV2API/api/File/FileDownload?fileId=',
-    userToken_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/TokenAuth/Authenticate',
-    emergencyResponderInfo_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthFirstAider/GetFirstAider', //FIXME CP
-    emergencyResponderRegister_url: 'https://www.uvipwap.com/WeiAiPuApiV2/api/services/app/HealthFirstAider/Register'
-  },
+   },
   utils: null, // 工具对象
   getLocalUser: function () {
     try {

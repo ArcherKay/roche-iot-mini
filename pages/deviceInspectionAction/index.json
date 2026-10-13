@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "净水器维护",
+  "usingComponents": {}, 
+  "enablePullDownRefresh": true,  
+  "onReachBottomDistance": 50  
+}

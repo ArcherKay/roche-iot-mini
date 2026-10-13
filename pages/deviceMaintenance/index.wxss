@@ -1,0 +1,382 @@
+/* Container */  
+.container {  
+  background-color: #f2f7fb;  
+  min-height: 100vh;  
+  padding-top: 56px; /* 留出顶部 tabs 的高度 */  
+}  
+
+/* Tabs */  
+.tabs {  
+  position: fixed;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  background-color: #ffffff;  
+  border-bottom: 1px solid #e5e7eb;  
+  z-index: 10;  
+  display: flex;  
+  justify-content: space-around;  
+  height: 50px; /* 增加高度，扩大点击区域 */  
+}  
+
+.tab-item {  
+  flex: 1;  
+  text-align: center;  
+  display: flex;  
+  flex-direction: column;  
+  justify-content: center;  
+  font-size: 30rpx;  
+  position: relative;  
+}  
+
+.tab-text {  
+  color: #6b7280;  
+}  
+
+.tab-text.active {  
+  color: #286fa2;  
+}  
+
+.tab-line {  
+  position: absolute;  
+  bottom: 0;  
+  left: 50%;  
+  transform: translateX(-50%);  
+  height: 2px;  
+  width: 50%;  
+  background-color: #3e8fc9;  
+  visibility: hidden;  
+  transition: all 0.3s ease;  
+}  
+
+.tab-line.visible {  
+  visibility: visible;  
+}  
+
+/* Tab Content */  
+.tab-content {  
+  font-size: 30rpx;  
+  color: #374151;  
+}  
+
+/* 巡检记录列表 */  
+.inspection-container {  
+  background-color: #f2f7fb;  
+}  
+
+.device-list-summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 8px;
+  padding: 8px 0 10px;
+  color: #527187;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.device-count {
+  min-width: 28px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: #dceefd;
+  color: #286fa2;
+  font-weight: 600;
+}
+
+.empty-state {
+  margin: 10px;
+  padding: 20px 12px;
+  border: 1px solid #dce8f1;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #6b7280;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.empty-state.error {
+  color: #bd6670;
+}
+
+/* 新建巡防按钮容器 */  
+.create-button-container {  
+  display: flex;  
+  justify-content: center;  
+  margin: 5px 10px;  
+}  
+
+/* 新建巡防按钮样式 */  
+.create-button {  
+  background-color: #3e88c2;  
+  color: #ffffff;  
+  border: none;  
+  border-radius: 8px;  
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width: 100%;
+  font-size: 30rpx;  
+  font-weight: bold;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  transition: transform 0.2s ease, box-shadow 0.2s ease;  
+}  
+
+.create-button:hover {  
+  background-color: #286fa2;
+  transform: translateY(-2px);  
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  
+}  
+
+/* 单个巡检项的样式 */  
+.inspection-item {  
+  background: #ffffff;  
+  border: 1px solid #e2edf5;
+  border-left: 3px solid #6fa8d8;
+  border-radius: 10px;  
+  box-shadow: 0 3px 10px rgba(45, 91, 131, 0.06);  
+  margin: 10px 12px 0;  
+  padding: 16px;  
+  display: flex;  
+  flex-direction: column;  
+  transition: transform 0.2s ease, box-shadow 0.2s ease;  
+}  
+
+.inspection-item:hover {  
+  transform: translateY(-2px);  
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  
+}  
+
+.item-header {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+  margin-bottom: 12px;  
+}  
+
+.device-id {  
+  font-weight: bold;  
+  color: #285f85;  
+  font-size: 30rpx;  
+}  
+
+.device-status {
+  flex-shrink: 0;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.device-status.online {
+  background-color: #e8f5ed;
+  color: #258052;
+}
+
+.device-status.offline {
+  background-color: #f1f3f5;
+  color: #6b7280;
+}
+
+.inspection-time {  
+  font-size: 30rpx;  
+  color: #6b7280;  
+}  
+
+.divider {  
+  height: 1px;  
+  background-color: #e7eff5;  
+  margin: 8px 0;  
+}  
+
+.item-content {  
+  display: flex;  
+  flex-direction: column;  
+  gap: 6px;  
+}  
+
+.content-row {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;
+  padding: 2px 0;
+}  
+
+.label {  
+  font-size: 30rpx;  
+  color: #718394;  
+}  
+
+.value {  
+  font-size: 30rpx;  
+  font-weight: bold;  
+  color: #36566c;  
+}
+
+.field-model .value {
+  color: #286fa2;
+}
+
+.field-manufacturer .value {
+  color: #39806f;
+}
+
+.field-serial .value {
+  color: #a47739;
+}
+
+.field-last-login .value {
+  color: #667b99;
+  font-weight: 500;
+}  
+
+.value.normal {  
+  color: #10b981; /* 绿色表示正常 */  
+}  
+
+.value.abnormal {  
+  color: #ef4444; /* 红色表示异常 */  
+}  
+/* 按钮容器 */  
+.item-actions {  
+  width: 100%;
+  display: flex;  
+  flex-direction: row-reverse;
+  justify-content: flex-start; /* 按钮靠右对齐 */  
+  align-items: center;
+  gap: 10px; 
+  margin-top: 12px;
+}  
+
+
+/* 按钮通用样式 */  
+.action-button {  
+  padding: 0px 16px;  
+  border-radius: 8px;  
+  font-size: 30rpx;  
+  font-weight: bold;  
+  border: none;  
+  cursor: pointer;  
+  transition: background-color 0.3s ease, transform 0.2s ease;  
+  
+}  
+
+/* 修改按钮样式 */  
+.edit-button {  
+  background-color: #3b82f6; /* 蓝色 */  
+  color: #ffffff; 
+  width: 60px; 
+}  
+
+.edit-button:hover {  
+  background-color: #2563eb; /* 深蓝色 */  
+  transform: translateY(-2px);  
+}  
+
+/* 删除按钮样式 */  
+.delete-button {  
+  background-color: #ef4444; /* 红色 */  
+  color: #ffffff;  
+  width: 60px; 
+}  
+
+.delete-button:hover {  
+  background-color: #dc2626; /* 深红色 */  
+  transform: translateY(-2px);  
+}  
+
+
+/* 报修记录列表 */  
+.repair-container {  
+  background-color: #f3f4f6;  
+}  
+
+.repair-item {  
+  background: linear-gradient(145deg, #ffffff, #f9fafb);  
+  border-radius: 12px;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  margin: 10px 10px 0;  
+  padding: 16px;  
+  display: flex;  
+  flex-direction: column;  
+}  
+
+.item-header {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+  margin-bottom: 12px;  
+}  
+
+.equipment-id {  
+  font-weight: bold;  
+  color: #374151;  
+  font-size: 30rpx;  
+}  
+
+.repair-time {  
+  font-size: 30rpx;  
+  color: #6b7280;  
+}  
+
+.divider {  
+  height: 1px;  
+  background-color: #e5e7eb;  
+  margin: 8px 0;  
+}  
+
+.content-row {  
+  display: flex;  
+  justify-content: space-between;  
+}  
+
+.label {  
+  font-size: 30rpx;  
+  color: #6b7280;  
+}  
+
+.value {  
+  font-size: 30rpx;  
+  font-weight: bold;  
+  color: #374151;  
+}  
+
+.value.processing {  
+  color: #f59e0b; /* 橙色表示处理中 */  
+}  
+
+.value.completed {  
+  color: #10b981; /* 绿色表示已完成 */  
+}  
+
+
+
+
+
+
+.relocation-item {  
+  background: linear-gradient(145deg, #ffffff, #f9fafb);  
+  border-radius: 12px;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  margin: 10px 10px 0;  
+  padding: 16px;  
+}  
+
+
+
+.apply-time {  
+  font-size: 30rpx;  
+  color: #6b7280;  
+}  
+
+
+
+.replacement-item {  
+  background-color: #ffffff;  
+  border-radius: 12px;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  margin: 10px 10px 0; 
+  padding: 16px;  
+}  
+

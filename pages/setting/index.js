@@ -38,11 +38,13 @@ Page({
           //重置全局变量
           app.globalData.userInfo = null
           app.globalData.phone = null
+          app.globalData.mesIotAccessToken = ''
+          app.globalData.mesIotUserInfo = null
           // 清除本地数据
           wx.clearStorage()
-          // 返回到登录页或首页
+          // 返回登录页
           wx.reLaunch({
-            url: '/pages/index/index'
+            url: '/pages/login/login'
           })
         } else if (res.cancel) {
           console.log('用户取消退出')

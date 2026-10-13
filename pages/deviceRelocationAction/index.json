@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "设备移机",
+  "usingComponents": {}, 
+  "enablePullDownRefresh": true,  
+  "onReachBottomDistance": 50  
+}

@@ -16,9 +16,9 @@ Page({
     selectedCityRecently: '厦门市',
     selectedProvinceRecently: '福建省',
     selectedCountyRecently: '湖里区',
-    deviceRidum: 500, //设备半径500米
-    deviceRidumDisplay:'半径：500米',
-    deviceRidumRecently: 500,//最近的半径
+    deviceRidum: Infinity, //设备半径500米
+    deviceRidumDisplay:'半径：' + '全部',
+    deviceRidumRecently: Infinity,//最近的半径
     deviceRidumArr: [500,1000,1500,2000,'全部'],
     showInfo: false,
     useAedInfoMask: false, 
@@ -39,7 +39,8 @@ Page({
     selectedCitylatitude:24.492319,
     selectedCitylongitude: 118.137876,
     polygons: [],  // 存储区域边界多边形数据
-    ridumIndex: 0
+    ridumIndex: 4,
+    isFirstOpen: true
   },
   
   onLoad: function(e) {
@@ -71,7 +72,6 @@ Page({
             fail() {
               // 用户拒绝授权，使用默认的初始经纬度24.492319,118.137876，默认的省市区
               console.log('用户拒绝授权地理位置权限');
-              
             }
           });
         } else {
@@ -82,6 +82,13 @@ Page({
     });
     // 测试数据
     // this.getDistrictsFromRemote('350200');
+  },
+  onShareAppMessage: function (e) {
+    var that = this;
+    return {
+      title: '救在心间',
+      path: '/pages/index/index'
+    }
   },
   resetMutiIndex: function(province, city) {
     // 默认值
@@ -213,6 +220,7 @@ Page({
       latitude: that.data.latitude,
       longitude: that.data.longitude
       })
+      
       return;
     }
     // 更新selectedCityRecently
@@ -266,10 +274,22 @@ Page({
     // console.log('computedAllRange:' + JSON.stringify(that.data.aedData))
     // 根据距离进行过滤，生成新的数据filteredData
     const filteredData = [];
+    // 最近用户
+    // let nearestAedItem = null;
+    // let distance = Infinity;
     for (let i = 0; i < that.data.aedData.length; i++) {
       const item = that.data.aedData[i];
       if (item.Range*1000 < that.data.deviceRidum) {
         // 创建新对象，使用浅拷贝
+        // if (distance >= item.Range*1000) {
+        //   distance = item.Range*1000
+        //   nearestAedItem = item // 最小的
+        //   nearestAedItem.iconPath="/static/icon/aed.png"
+        //   nearestAedItem.width = 30
+        //   nearestAedItem.height = 42
+        //   nearestAedItem.aedid = item.id
+          
+        // }
         filteredData.push({
           ...item, // 浅拷贝 item 的属性
         });
@@ -285,6 +305,15 @@ Page({
     that.setData({
       totalCount: filteredData.length,
       markers: filteredData
+    },()=>{
+      // 判断是否是第一次打开小程序
+      if (that.data.isFirstOpen) {
+        // that.data.isFirstOpen = false // fixme cp
+        that.setData({
+          isFirstOpen: false
+        })
+        that.onMarkerTapNearestItem()
+      }
     })
   },
   onLocateMeButtonTap: function() {
@@ -315,23 +344,6 @@ Page({
       }
     });
 
-  },
-  onCityPickerTap: function() {
-      //转到问卷
-      console.log('onCityPickerTap111')
-      wx.navigateTo({
-        url: '/pages/questionnaire/index',
-        success: function() {
-          // 当页面成功打开后执行
-          console.log('onCityPickerTap success')
-        },
-        fail: function(err) {
-          console.log('err:' + JSON.stringify(err))
-
-        }
-
-      });
-      console.log('onCityPickerTap222')
   },
   onRidumChange: function(e) {
     const index = e.detail.value;
@@ -493,6 +505,20 @@ Page({
         that.setCountyIndex('全部')
      });
 
+      // 设置半径为全部
+      let distance = Infinity;
+      let radiumDisp = '';
+      radiumDisp = '半径：' + '全部';
+
+      that.setData({     
+        ridumIndex: 4,
+        deviceRidum: distance,
+        deviceRidumDisplay: radiumDisp
+      }, ()=>{
+        
+      });
+
+
       that.getCoordinatesForAddress(); // 选择后获取经纬度
       // 选择区域边界信息
       // that.getBoundary('350200');
@@ -593,7 +619,27 @@ Page({
       const county = that.data.districts[selectedIndex];
       const countyInfo = that.data.districtsDetail[county];
       const { lat, lng } = countyInfo.location;
-      // 如果此时半径为全部，则设置默认值为1000米
+      // 默认改为全部 20241108
+      // console.log('ridumIndex is =======' + that.data.ridumIndex)
+        // 默认1000米范围
+        // distance = that.data.deviceRidumArr[1]
+        // radiumDisp = '半径：' + distance + '米';
+        this.setData({
+          latitude: lat, 
+          longitude: lng,
+          districtIndex: selectedIndex,
+          selectedCounty: that.data.districts[selectedIndex],
+          // 默认设置成1000米
+          ridumIndex: 1,
+          deviceRidum: distance,
+          deviceRidumDisplay: radiumDisp
+        }, ()=>{
+          // 得到经纬度后动作
+          that.moveToLocationAndUpdateDevice();
+        });
+
+      /*
+      // 如果此时半径为全部，则设置默认值为1000米，改成默认为全部
       if (that.data.ridumIndex == 4) {
         console.log('ridumIndex is =======' + that.data.ridumIndex)
         // 默认1000米范围
@@ -622,7 +668,7 @@ Page({
           // 得到经纬度后动作
           that.moveToLocationAndUpdateDevice();
         });
-      }
+      }*/
 
       
     }
@@ -695,6 +741,70 @@ Page({
     }
     
   },
+
+  onMarkerTapNearestItem() {
+
+    const firstElement = this.data.markers[0]; // 获取第一个元素
+// const lastElement = filteredData[filteredData.length - 1]; 
+    const markerId = firstElement.id;
+    const marker = firstElement;
+    if (marker) {
+
+      const updatedMarkers = this.data.markers.map(marker => {
+        if (marker.id === markerId) {
+          return {
+            ...marker,
+            callout: {
+              content: `${marker.setUpPosition} `,
+              fontSize: 14,
+              borderRadius: 10,
+              padding: 10,
+              display: 'ALWAYS',
+              textAlign: 'left',
+              // bgColor: '#ffffff',
+              // borderColor: '#000000',
+              // borderWidth: 1
+            }
+          };
+        } else {
+          return {
+            ...marker,
+            callout: {} // 清除其他 marker 的 callout
+          };
+        }
+      });
+
+    
+      this.setData({
+        markers: updatedMarkers,
+        showInfo: true,
+        selectedMarkerLatitude: marker.latitude,
+        selectedMarkerLongitude: marker.longitude,
+        sn: marker.sn,
+        aeDmanufacturer: marker.aeDmanufacturer,
+        electricStatus: marker.electricStatus,
+        setUpPosition: marker.setUpPosition,
+        Range: marker.Range,
+        detailPosition: marker.detailPosition
+      });
+      
+       // 中心移到指定经纬度
+      const mapContext = wx.createMapContext('map');
+      mapContext.moveToLocation({
+        latitude: marker.latitude,
+        longitude: marker.longitude
+      })
+      
+
+      
+      
+      
+    }
+    
+  },
+
+
+
 
   onMapTap() {
     // if (this.data.showInfo == true) {
